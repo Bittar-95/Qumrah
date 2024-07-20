@@ -66,7 +66,7 @@ public class AuthServiceTests
            .Setup(x => x.GetSection("AppSettings:Token"))
            .Returns(configurationSectionMock.Object);
 
-        _authService = new AuthService(_userRepository.Object, _mapper, configurationMock.Object);
+        //_authService = new AuthService(_userRepository.Object, _mapper, configurationMock.Object);
     }
 
     [Fact]

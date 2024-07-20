@@ -13,7 +13,7 @@ public static class DependencyInjection
     {
         services.AddDbContext<AspNetCoreNTierDbContext>(options =>
         {
-            options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+            options.UseMySql(Configuration.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(Configuration.GetConnectionString("DefaultConnection")));
         });
 
         services.AddScoped<IUserRepository, UserRepository>();
