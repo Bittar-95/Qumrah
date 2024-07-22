@@ -11,7 +11,7 @@ using aspnetcore.ntier.DAL.DataContext;
 namespace aspnetcore.ntier.DAL.Migrations
 {
     [DbContext(typeof(AspNetCoreNTierDbContext))]
-    [Migration("20240722204427_init")]
+    [Migration("20240722204958_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -265,6 +265,10 @@ namespace aspnetcore.ntier.DAL.Migrations
                         .HasColumnType("double");
 
                     b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ThumbnailPath")
                         .IsRequired()
                         .HasColumnType("longtext");
 

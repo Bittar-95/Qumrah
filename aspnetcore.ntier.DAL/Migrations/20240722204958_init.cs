@@ -217,6 +217,8 @@ namespace aspnetcore.ntier.DAL.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     FilePath = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    ThumbnailPath = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Width = table.Column<double>(type: "double", nullable: false),
                     Height = table.Column<double>(type: "double", nullable: false),
                     TotalDownloads = table.Column<int>(type: "int", nullable: false),

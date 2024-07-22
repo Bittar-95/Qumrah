@@ -14,6 +14,7 @@ namespace aspnetcore.ntier.DAL.Entities
         public string Title { get; set; }
         public string Location { get; set; }
         public string FilePath { get; set; }
+        public string ThumbnailPath { get; set; }
         public double Width { get; set; }
         public double Height { get; set; }
         public int TotalDownloads { get; set; }
