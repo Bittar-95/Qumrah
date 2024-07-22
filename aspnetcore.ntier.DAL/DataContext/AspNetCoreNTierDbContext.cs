@@ -8,4 +8,7 @@ namespace aspnetcore.ntier.DAL.DataContext;
 public class AspNetCoreNTierDbContext : IdentityDbContext<ApplicationUser, IdentityRole<int>, int>
 {
     public AspNetCoreNTierDbContext(DbContextOptions<AspNetCoreNTierDbContext> options) : base(options) { }
+    public DbSet<Multimedia> Multimedias { get; set; }
+    public DbSet<Tag> Tags { get; set; }
+    public DbSet<Color> Colors { get; set; }
 }

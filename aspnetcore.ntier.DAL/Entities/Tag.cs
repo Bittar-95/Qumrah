@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using aspnetcore.ntier.DAL.Entities.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace aspnetcore.ntier.DAL.Entities
 {
-    public class ApplicationUser : IdentityUser<int>
+    public class Tag: BaseEntity<int>
     {
+        public string Name { get; set; }
+
         public List<Multimedia> Multimedias { get; set; }
     }
 }

@@ -11,7 +11,7 @@ using aspnetcore.ntier.DAL.DataContext;
 namespace aspnetcore.ntier.DAL.Migrations
 {
     [DbContext(typeof(AspNetCoreNTierDbContext))]
-    [Migration("20240720183306_init")]
+    [Migration("20240722204427_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -148,6 +148,21 @@ namespace aspnetcore.ntier.DAL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("MultimediaTag", b =>
+                {
+                    b.Property<int>("MultimediasId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MultimediasId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("MultimediaTag");
+                });
+
             modelBuilder.Entity("aspnetcore.ntier.DAL.Entities.ApplicationUser", b =>
                 {
                     b.Property<int>("Id")
@@ -213,6 +228,87 @@ namespace aspnetcore.ntier.DAL.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("aspnetcore.ntier.DAL.Entities.Color", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Hexadecimal")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("MultimediaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MultimediaId");
+
+                    b.ToTable("Colors");
+                });
+
+            modelBuilder.Entity("aspnetcore.ntier.DAL.Entities.Multimedia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<double>("Height")
+                        .HasColumnType("double");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("TotalDownloads")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalViews")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Width")
+                        .HasColumnType("double");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Multimedias");
+                });
+
+            modelBuilder.Entity("aspnetcore.ntier.DAL.Entities.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<int>", null)
@@ -262,6 +358,53 @@ namespace aspnetcore.ntier.DAL.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MultimediaTag", b =>
+                {
+                    b.HasOne("aspnetcore.ntier.DAL.Entities.Multimedia", null)
+                        .WithMany()
+                        .HasForeignKey("MultimediasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("aspnetcore.ntier.DAL.Entities.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("aspnetcore.ntier.DAL.Entities.Color", b =>
+                {
+                    b.HasOne("aspnetcore.ntier.DAL.Entities.Multimedia", "Multimedia")
+                        .WithMany("Colors")
+                        .HasForeignKey("MultimediaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Multimedia");
+                });
+
+            modelBuilder.Entity("aspnetcore.ntier.DAL.Entities.Multimedia", b =>
+                {
+                    b.HasOne("aspnetcore.ntier.DAL.Entities.ApplicationUser", "User")
+                        .WithMany("Multimedias")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("aspnetcore.ntier.DAL.Entities.ApplicationUser", b =>
+                {
+                    b.Navigation("Multimedias");
+                });
+
+            modelBuilder.Entity("aspnetcore.ntier.DAL.Entities.Multimedia", b =>
+                {
+                    b.Navigation("Colors");
                 });
 #pragma warning restore 612, 618
         }
