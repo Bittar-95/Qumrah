@@ -1,6 +1,9 @@
 ﻿using aspnetcore.ntier.DAL.DataContext;
+using aspnetcore.ntier.DAL.Entities;
 using aspnetcore.ntier.DAL.Repositories;
 using aspnetcore.ntier.DAL.Repositories.IRepositories;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +18,9 @@ public static class DependencyInjection
         {
             options.UseMySql(Configuration.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(Configuration.GetConnectionString("DefaultConnection")));
         });
-
+        services.AddIdentity<ApplicationUser, IdentityRole<int>>()
+                .AddEntityFrameworkStores<AspNetCoreNTierDbContext>()
+                .AddDefaultTokenProviders();
         services.AddScoped<IUserRepository, UserRepository>();
     }
 }
