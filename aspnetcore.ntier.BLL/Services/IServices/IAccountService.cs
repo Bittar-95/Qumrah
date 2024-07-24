@@ -10,7 +10,7 @@ namespace aspnetcore.ntier.BLL.Services.IServices
 {
     public interface IAccountService
     {
-        Task<bool> LoginUser(LoginUserDto model);
+        Task<SignInResult> LoginUser(LoginUserDto model);
         Task LogoutUser();
         Task<IdentityResult> RegisterNewUser(RegisterUserDto model);
     }

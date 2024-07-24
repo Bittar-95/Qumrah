@@ -8,6 +8,7 @@ using System.Text;
 using aspnetcore.ntier.DAL.Entities;
 using aspnetcore.ntier.BLL.Services.IServices;
 using aspnetcore.ntier.DTO.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Qumrah.Web.Controllers
 {
@@ -37,10 +38,19 @@ namespace Qumrah.Web.Controllers
                     isPersistent = model.isPersistent,
                     Password = model.Password,
                 });
-                if (loginResult)
+                if (loginResult.Succeeded)
                 {
                     var redirectUrl = model.ReturnUrl ?? "/";
                     return Redirect(redirectUrl);
+                }
+
+                if (loginResult.IsLockedOut)
+                {
+                    ModelState.AddModelError(string.Empty, "The Account Is Locked");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 }
             }
 
@@ -74,6 +84,7 @@ namespace Qumrah.Web.Controllers
             return View(model);
         }
 
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await _accountService.LogoutUser();
