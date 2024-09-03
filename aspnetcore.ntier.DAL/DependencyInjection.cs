@@ -22,5 +22,8 @@ public static class DependencyInjection
                 .AddEntityFrameworkStores<AspNetCoreNTierDbContext>()
                 .AddDefaultTokenProviders();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+
     }
 }
