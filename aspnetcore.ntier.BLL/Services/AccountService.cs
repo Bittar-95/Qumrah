@@ -52,6 +52,17 @@ namespace aspnetcore.ntier.BLL.Services
 
             return result;
         }
+
+        public async Task<int> GetUserId(string Email)
+        {
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, 
+            // set lockoutOnFailure: true
+            return (await _userManager.FindByEmailAsync(Email)).Id;
+
+
+        }
+
         public async Task<SignInResult> LoginUser(LoginUserDto model)
         {
             // This doesn't count login failures towards account lockout

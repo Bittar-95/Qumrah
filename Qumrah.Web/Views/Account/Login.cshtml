@@ -1,7 +1,64 @@
 ﻿@using Qumrah.Web.Models.Account
 @model LoginVM
+@{
+    Layout = "_AccountLayout";
+    ViewBag.Title = "تسجيل الدخول";
+}
+@if (ViewBag.Error is not null)
+{
+    <!-- Errors Go Here -->
+    <div onclick="closeButton1()" class="ErrorCase width" id="ErrorCase1">
+        <div> @ViewBag.Error </div>
+        <div style="font-weight: bold;">✕</div>
+    </div>
+    ViewBag.Error = null;
+}
 
-<form asp-action="Login">
+
+
+<div class="Logo">
+    <img src="/images/Rectangle.png" alt="Logo">
+</div>
+
+<div class="welcome">
+    أهلا بعودتك في موقع قُمرة
+</div>
+<form style="display:contents" asp-action="Login">
+
+    <section class="width insert-section">
+        <label asp-for=Email></label>
+        <input class="width input input_field" asp-for="Email">
+        <span asp-validation-for="Email" class="red"></span>
+    </section>
+
+    <section class="width insert-section">
+        <label asp-for=Password></label>
+        <div style="position: relative;">
+            <input class="width input input_field" asp-for="Password" type="password">
+            <span asp-validation-for="Password" class="red"></span>
+            <div id="view">
+                <img id="show" onclick="show()" src="/images/show_password.png" draggable="false">
+                <img id="hide" onclick="hide()" src="/images/hide_password.png" draggable="false">
+            </div>
+        </div>
+        <div class="colorConatainer">
+            <a href="#" style="text-decoration:none" class="blue">هل نسيت كلمة المرور؟</a>
+        </div>
+    </section>
+    <button type="submit" class="sign_in width">تسجيل الدخول</button>
+    <div class="account">
+        <span> مستخدم جديد؟ </span>
+        <span>&nbsp;</span>
+        <a asp-action="Signup" class="blue underline-non"> إنشاء حساب </a>
+    </div>
+</form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="/js/main.js"></script>
+    }
+}
+@* <form asp-action="Login">
     <!-- Email input -->
     <div data-mdb-input-init class="form-outline mb-4">
         <input asp-for="Email" class="form-control" />
@@ -53,4 +110,4 @@
             <i class="fab fa-github"></i>
         </button>
     </div>
-</form>
+</form> *@

@@ -1,0 +1,193 @@
+* {
+    box-sizing: border-box;
+    outline: none;
+}
+
+body {
+    font-family: "Almarai", sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+label{
+    line-height: 21px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+
+/* Start */
+
+
+.underline-non {
+text-decoration:none;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+
+.part2 {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 47.22%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    overflow: hidden;
+}
+
+.part2 img {
+    width: 100%;
+}
+
+
+
+
+.part1 {
+    width: calc(52.78% - 8px);
+}
+
+
+
+.midLine{
+    width: 100%;
+    padding-right: 19.74%;
+    padding-left: 19.74%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.width{
+    width: 100%;
+}
+
+
+
+
+ .ErrorCase{
+    background-color: #FF2121;
+    color: #fff;
+    padding: 0px 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    cursor: pointer;
+    margin-top: 24px;
+}
+
+.Logo{
+    margin-top: 56px;
+}
+
+.Logo img{
+    width: 70px;
+}
+
+.welcome{
+    font-size: 24px;
+    margin-top: 16px;
+    margin-bottom: 32px;
+}
+
+
+.input {
+    height: 52px;
+    border-radius: 6px;
+    padding: 14px;
+    line-height: 21px;
+    border: 1px solid #C7D2E5;
+    font-weight: bold;
+}
+
+.colorConatainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.red{
+    line-height:18px ;
+    color: #F71212;
+}
+
+.blue{
+    line-height:21px ;
+    color: #1E86FF;
+}
+
+
+section.insert-section{
+    /* background-color: aquamarine; */
+    margin-bottom: 16px;
+}
+
+.section.insert-section label{
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom:8px;
+    display: block;
+    line-height: 21px;
+}
+
+
+.sign_in {
+    background-color: #1E86FF;
+    color: #fff;
+    padding: 0px 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+#view{
+    position: absolute;
+    top: 14px;
+    left: 14px;
+}
+
+#show{
+    width:24px; 
+    display: none;
+    cursor: pointer; 
+}
+
+#hide{
+    width:24px; 
+    display: none;
+    cursor: pointer; 
+}
+
+
+.account{
+    font-weight: bold;
+    margin: 24px 0px;
+}
+
+.account span:nth-of-type(3){
+    color: #1E86FF;
+    cursor: pointer;
+}
+
+.sign_in:hover{
+    background-color: #1B76E1;
+}
+.account span:nth-of-type(3):hover{
+    color: #1B76E1;
+}

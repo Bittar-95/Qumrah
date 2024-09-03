@@ -1,7 +1,88 @@
 ﻿@using Qumrah.Web.Models.Account
 @model SignupVM
+@{
+    ViewBag.Title = "مستخدك جديد";
+    Layout = "_AccountLayout";
+}
 
-<section class="vh-100" style="background-color: #eee;">
+@if (ViewBag.Error is not null)
+{
+    <!-- Errors Go Here -->
+    <div onclick="closeButton1()" class="ErrorCase width" id="ErrorCase1">
+        <div> @ViewBag.Error </div>
+        <div style="font-weight: bold;">✕</div>
+    </div>
+    ViewBag.Error = null;
+}
+
+<div class="Logo">
+    <img src="/images/Rectangle.png" alt="Logo">
+</div>
+
+<div class="welcome">
+    أهلاً بك في موقع قُمرة
+</div>
+<form style="display:contents" asp-action="Signup">
+
+    <section class="width insert-section">
+        <label asp-for="Email"></label>
+        <input class="width input input_field" asp-for="Email">
+        <div class="colorConatainer">
+            <span class="red" asp-validation-for="Email"> </span>
+        </div>
+    </section>
+
+    @* <section class="width insert-section">
+    <label for="email"> البريد الإلكتروني </label>
+    <input class="width input input_field" placeholder=" أدخل البريد الإلكتروني " type="text" id="email" name="email">
+    <div class="colorConatainer">
+    <span class="red">صيغة البريد الإلكتروني غير صحيحة</span>
+    <span class="blue">هذا الحقل مطلوب</span>
+    </div>
+    </section> *@
+
+    <section class="width insert-section">
+        <label asp-for="Password"></label>
+        <div style="position: relative;">
+            <input class="width input input_field" asp-for="Password" type="password">
+            <div id="view">
+                <img id="show" onclick="show()" src="/images/show_password.png" draggable="false">
+                <img id="hide" onclick="hide()" src="/images/hide_password.png" draggable="false">
+            </div>
+        </div>
+        <div class="colorConatainer">
+            <span class="red" asp-validation-for="Password"></span>
+        </div>
+    </section>
+
+    <section class="width insert-section">
+        <label asp-for="ReTypePassword"></label>
+        <div style="position: relative;">
+            <input class="width input input_field" asp-for="ReTypePassword" type="password">
+            <div id="view">
+                <img id="show" onclick="show()" src="/images/show_password.png" draggable="false">
+                <img id="hide" onclick="hide()" src="/images/hide_password.png" draggable="false">
+            </div>
+        </div>
+        <div class="colorConatainer">
+            <span class="red" asp-validation-for="ReTypePassword"></span>
+        </div>
+    </section>
+    <button type="submit" class="sign_in width"> إنشاء حساب</button>
+
+</form>
+<div class="account">
+    <span> هل لديك حساب بالفعل؟ </span>
+    <span>&nbsp;</span>
+    <a asp-action="Login" class="underline-non blue"> تسجيل الدخول </a>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="/js/main.js"></script>
+    }
+}
+@* <section class="vh-100" style="background-color: #eee;">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-lg-12 col-xl-11">
@@ -72,4 +153,4 @@
             </div>
         </div>
     </div>
-</section>
+</section> *@

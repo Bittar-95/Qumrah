@@ -46,11 +46,13 @@ namespace Qumrah.Web.Controllers
 
                 if (loginResult.IsLockedOut)
                 {
-                    ModelState.AddModelError(string.Empty, "The Account Is Locked");
+                    ViewBag.Error = "تم إقفال الحساب";
+                    ModelState.AddModelError(string.Empty, "تم إقفال الحساب");
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ViewBag.Error = "البريد الألكتروني او كلمة المرور غير صحيحة";
+                    ModelState.AddModelError(string.Empty, "البريد الألكتروني او كلمة المرور غير صحيحة");
                 }
             }
 
@@ -79,6 +81,12 @@ namespace Qumrah.Web.Controllers
                 {
                     return RedirectToAction("index", "Home");
                 }
+                else
+                {
+                    ViewBag.Error = GetErrorMessage(result.Errors);
+                }
+
+
             }
 
             return View(model);
@@ -89,6 +97,19 @@ namespace Qumrah.Web.Controllers
         {
             await _accountService.LogoutUser();
             return RedirectToAction("Index", "Home");
+
+        }
+
+
+        private string GetErrorMessage(IEnumerable<IdentityError> errors)
+        {
+            var errorMessages = new StringBuilder();
+            var dic = new Dictionary<string, string> { { "DuplicateUserName", "البريد الالكتروني مستخدم من قبل" } };
+            foreach (var error in errors)
+            {
+                errorMessages.Append(dic[error.Code]);
+            }
+            return string.Join(Environment.NewLine, errorMessages);
 
         }
 

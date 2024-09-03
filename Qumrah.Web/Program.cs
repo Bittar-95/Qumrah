@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using aspnetcore.ntier.DAL;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 
 
 namespace Qumrah.Web
@@ -24,6 +25,16 @@ namespace Qumrah.Web
                 options.LoginPath = "/Account/Login";
                 options.AccessDeniedPath = "/Account/AccessDenied";
                 options.SlidingExpiration = true;
+
+            });
+
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                // Default Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
             });
 
             builder.Services.RegisterDALDependencies(builder.Configuration);
@@ -31,7 +42,6 @@ namespace Qumrah.Web
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
