@@ -11,8 +11,13 @@ namespace aspnetcore.ntier.DAL.Entities
 {
     public class Multimedia : BaseEntity<int>
     {
-        public string Title { get; set; }
-        public string Location { get; set; }
+        public Multimedia()
+        {
+            CreatedAt = DateTime.UtcNow;
+        }
+
+        public string? Title { get; set; }
+        public string? Location { get; set; }
         public string FilePath { get; set; }
         public string ThumbnailPath { get; set; }
         public double Width { get; set; }
