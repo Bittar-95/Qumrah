@@ -1,12 +1,15 @@
 ﻿using aspnetcore.ntier.DTO.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace aspnetcore.ntier.BLL.Services.IServices;
-
-public interface IUserService
+namespace aspnetcore.ntier.BLL.Services.IServices
 {
-    Task<List<UserDTO>> GetUsersAsync(CancellationToken cancellationToken = default);
-    Task<UserDTO> GetUserAsync(int userId, CancellationToken cancellationToken = default);
-    Task<UserDTO> AddUserAsync(UserToAddDTO userToAddDTO);
-    Task<UserDTO> UpdateUserAsync(UserToUpdateDTO userToUpdateDTO);
-    Task DeleteUserAsync(int userId);
+    public interface IUserService
+    {
+        Task EditAsync(EditUserDto model);
+        Task<ApplicationUserDto> GetAsync(string Email);
+    }
 }

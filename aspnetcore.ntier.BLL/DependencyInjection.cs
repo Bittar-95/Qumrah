@@ -17,6 +17,10 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using aspnetcore.ntier.BLL.Services.Multimedia;
+using aspnetcore.ntier.BLL.Utilities.ProcessingImages;
+using AutoMapper;
+using aspnetcore.ntier.BLL.Services.User;
 
 namespace aspnetcore.ntier.BLL;
 
@@ -25,13 +29,17 @@ public static class DependencyInjection
     public static void RegisterBLLDependencies(this IServiceCollection services, IConfiguration Configuration)
     {
         services.AddAutoMapper(typeof(AutoMapperProfiles));
-        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IUserServiceToRemove, UserServiceToRemove>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IAccountService, AccountService>();
+        services.AddScoped<IMapper, Mapper>();
 
         services.AddFluentValidationAutoValidation();
         services.AddValidatorsFromAssemblyContaining<UserToLoginDTOValidator>();
         services.AddValidatorsFromAssemblyContaining<UserToRegisterDTOValidator>();
+        services.AddScoped<IMultimediaService, MultimediaService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<ImageProcess>();
 
         #region Versioning
 

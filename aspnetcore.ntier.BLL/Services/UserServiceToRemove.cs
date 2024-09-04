@@ -8,13 +8,13 @@ using Microsoft.Extensions.Logging;
 
 namespace aspnetcore.ntier.BLL.Services;
 
-public class UserService : IUserService
+public class UserServiceToRemove : IUserServiceToRemove
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
-    private readonly ILogger<UserService> _logger;
+    private readonly ILogger<UserServiceToRemove> _logger;
 
-    public UserService(IUserRepository userRepository, IMapper mapper, ILogger<UserService> logger)
+    public UserServiceToRemove(IUserRepository userRepository, IMapper mapper, ILogger<UserServiceToRemove> logger)
     {
         _userRepository = userRepository;
         _mapper = mapper;
@@ -46,7 +46,7 @@ public class UserService : IUserService
     public async Task<UserDTO> AddUserAsync(UserToAddDTO userToAddDTO)
     {
         userToAddDTO.Username = userToAddDTO.Username.ToLower();
-        var addedUser = await _userRepository.AddAsync(_mapper.Map<User>(userToAddDTO));
+        var addedUser = await _userRepository.AddAsync(_mapper.Map<aspnetcore.ntier.DAL.Entities.User>(userToAddDTO));
 
         return _mapper.Map<UserDTO>(addedUser);
     }
@@ -62,7 +62,7 @@ public class UserService : IUserService
             throw new UserNotFoundException();
         }
 
-        var userToUpdate = _mapper.Map<User>(userToUpdateDTO);
+        var userToUpdate = _mapper.Map<aspnetcore.ntier.DAL.Entities.User>(userToUpdateDTO);
 
         _logger.LogInformation("User with these properties: {@UserToUpdate} has been updated", userToUpdateDTO);
 

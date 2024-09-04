@@ -49,7 +49,7 @@ public class AuthService : IAuthService
     {
         userToRegisterDTO.Username = userToRegisterDTO.Username.ToLower();
 
-        var addedUser = await _userRepository.AddAsync(_mapper.Map<User>(userToRegisterDTO));
+        var addedUser = await _userRepository.AddAsync(_mapper.Map<aspnetcore.ntier.DAL.Entities.User>(userToRegisterDTO));
 
         var userToReturn = _mapper.Map<UserToReturnDTO>(addedUser);
         userToReturn.Token = GenerateToken(addedUser.UserId, addedUser.Username);

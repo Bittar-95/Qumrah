@@ -12,9 +12,9 @@ namespace aspnetcore.ntier.API.Controllers.V2;
 [ApiController]
 public class UserController : ControllerBase
 {
-    private readonly IUserService _userService;
+    private readonly IUserServiceToRemove _userService;
 
-    public UserController(IUserService userService)
+    public UserController(IUserServiceToRemove userService)
     {
         _userService = userService;
     }
