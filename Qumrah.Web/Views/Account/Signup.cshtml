@@ -4,7 +4,28 @@
     ViewBag.Title = "مستخدك جديد";
     Layout = "_AccountLayout";
 }
+@section Header {
 
+    <style>
+        button.save-btn {
+            padding: 12px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            padding: 16px 32px;
+            justify-content: center;
+            align-items: center;
+            background: #1E86FF;
+            text-align: center;
+            font-family: Almarai;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 24px;
+        }
+    </style>
+}
 @if (ViewBag.Error is not null)
 {
     <!-- Errors Go Here -->
@@ -68,7 +89,7 @@
             <span class="red" asp-validation-for="ReTypePassword"></span>
         </div>
     </section>
-    <button type="submit" class="sign_in width"> إنشاء حساب</button>
+    <button type="submit" class="save-btn width"> إنشاء حساب</button>
 
 </form>
 <div class="account">

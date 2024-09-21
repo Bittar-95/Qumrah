@@ -13,7 +13,28 @@
     </div>
     ViewBag.Error = null;
 }
+@section Header {
 
+    <style>
+        button.save-btn {
+            padding: 12px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            padding: 16px 32px;
+            justify-content: center;
+            align-items: center;
+            background: #1E86FF;
+            text-align: center;
+            font-family: Almarai;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 24px;
+        }
+    </style>
+}
 
 
 <div class="Logo">
@@ -45,7 +66,8 @@
             <a href="#" style="text-decoration:none" class="blue">هل نسيت كلمة المرور؟</a>
         </div>
     </section>
-    <button type="submit" class="sign_in width">تسجيل الدخول</button>
+    <button class="save-btn width" type="submit">تسجيل الدخول</button>
+
     <div class="account">
         <span> مستخدم جديد؟ </span>
         <span>&nbsp;</span>
