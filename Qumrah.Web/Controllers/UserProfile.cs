@@ -19,7 +19,24 @@ namespace Qumrah.Web.Controllers
             _configuration = configuration;
             _hostingEnvironment = hostingEnvironment;
         }
-
+        public async Task<IActionResult> index()
+        {
+            //var user = await _userService.GetAsync(User.Identity.Name);
+            //var editProfileVM = new EditProfileVM
+            //{
+            //    Description = user.Description,
+            //    TwitterLink = user.TwitterLink,
+            //    FBLink = user.FBLink,
+            //    FirstName = user.FirstName,
+            //    InstagramLink = user.InstagramLink,
+            //    LastName = user.LastName,
+            //    Email = user.Email,
+            //    ImagePath = user.ImagePath,
+            //    Location = user.Location,
+            //    WebsiteUrl = user.WebsiteUrl,
+            //};
+            return View();
+        }
         public async Task<IActionResult> Edit()
         {
             var user = await _userService.GetAsync(User.Identity.Name);
