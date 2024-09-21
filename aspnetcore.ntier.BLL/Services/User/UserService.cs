@@ -4,6 +4,7 @@ using aspnetcore.ntier.DAL.Repositories.IRepositories;
 using aspnetcore.ntier.DTO.DTOs;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,11 @@ namespace aspnetcore.ntier.BLL.Services.User
             var result = await _applicationUserRepository.GetAsync(x => x.Email == Email);
             return _mapper.Map<ApplicationUserDto>(result);
         }
+        public ApplicationUserDto GetWithImages(int Id)
+        {
+            var result = _applicationUserRepository.Get().Include(mm => mm.Multimedias).Where(u => u.Id == Id).AsNoTracking().FirstOrDefault();
+            return _mapper.Map<ApplicationUserDto>(result);
+        }
         public async Task EditAsync(EditUserDto model)
         {
             var user = await _applicationUserRepository.GetAsync(x => x.Id == model.Id);
@@ -35,7 +41,7 @@ namespace aspnetcore.ntier.BLL.Services.User
             {
                 throw new Exception("the user not exist");
             }
-            _mapper.Map<EditUserDto,ApplicationUser>(model,user);
+            _mapper.Map<EditUserDto, ApplicationUser>(model, user);
             await _applicationUserRepository.UpdateAsync(user);
         }
     }

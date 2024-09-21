@@ -1,1 +1,84 @@
-﻿<div style="height:10000px">asdasds</div>
+﻿@using Qumrah.Web.Models.UserProfile
+@model IndexVM
+@{
+    ViewBag.Title = "الصفحة الشخصية";
+}
+@section Header {
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true">
+}
+
+
+<!-- Person Info -->
+<div class="profile-container">
+    <div>
+        <img class="profile-picture" src="/images/Profile_Picture.png" alt="Profile Picture">
+    </div>
+
+    <section>
+        <div class="profile-header">
+            <div class="profile-name-edit">
+                <div class="profile-name">@Model.FirstName @Model.LastName</div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-action="Edit" class="profile-edit-button" style="text-decoration:none">
+                        <img src="/images/edit_icon.png" alt="Edit Icon" class="edit-icon">
+                        <div class="edit-text">تعديل الملف</div>
+                    </a>
+                }
+            </div>
+        </div>
+
+        <div class="profile-location">
+            @if (!string.IsNullOrEmpty(Model.Location))
+            {
+                <img src="/images/location_icon.png" alt="Location" class="location-icon">
+                <span class="location-text">@Model.Location</span>
+
+                <div class="divider"></div>
+            }
+            @if (!string.IsNullOrEmpty(Model.WebsiteUrl))
+            {
+                <a href="@Model.WebsiteUrl" class="profile-social-icon">
+                    <img src="/images/web_icon.png" alt="Website" class="profile-social-icon">
+                </a>
+
+            }
+            @if (!string.IsNullOrEmpty(Model.InstagramLink))
+            {
+                <a href="@Model.InstagramLink" class="profile-social-icon">
+                    <img src="/images/instagram_logo.png" alt="Instagram" class="profile-social-icon">
+                </a>
+            }
+            @if (!string.IsNullOrEmpty(Model.FBLink))
+            {
+                <a href="@Model.FBLink" class="profile-social-icon">
+                    <img src="/images/facebook_logo.png" alt="Facebook" class="profile-social-icon">
+                </a>
+            }
+            @if (!string.IsNullOrEmpty(Model.TwitterLink))
+            {
+                <a href="@Model.TwitterLink" class="profile-social-icon">
+                    <img src="/images/twitter_logo.png" alt="Twitter" class="profile-social-icon">
+                </a>
+            }
+        </div>
+
+        <div class="profile-description">
+            <div>@Model.Description</div>
+        </div>
+    </section>
+</div>
+
+
+
+<!-- Person Images -->
+<section class="person_images">
+
+    @foreach (var multimedia in Model.Multimedias)
+    {
+        <img src="@string.Concat("/images/",multimedia.ThumbnailPath)">
+
+    }
+</section>
+
+

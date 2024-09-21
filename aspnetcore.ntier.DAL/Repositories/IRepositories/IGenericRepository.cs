@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace aspnetcore.ntier.DAL.Repositories.IRepositories;
 
@@ -11,4 +12,5 @@ public interface IGenericRepository<T> where T : class, new()
     Task<int> DeleteAsync(T entity);
     Task<List<T>> AddRangeAsync(List<T> entity);
     Task<List<T>> UpdateRangeAsync(List<T> entity);
+    DbSet<T> Get();
 }

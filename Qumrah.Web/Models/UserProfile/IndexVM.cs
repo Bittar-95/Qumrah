@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using aspnetcore.ntier.DTO.DTOs;
+using Qumrah.Web.Models.Multimedia;
 
-namespace aspnetcore.ntier.DTO.DTOs
+namespace Qumrah.Web.Models.UserProfile
 {
-    public class ApplicationUserDto
+    public class IndexVM
     {
         public int Id { get; set; }
         public string Email { get; set; }
@@ -19,6 +16,6 @@ namespace aspnetcore.ntier.DTO.DTOs
         public string? ImagePath { get; set; }
         public string? Location { get; set; }
         public string? WebsiteUrl { get; set; }
-        public List<MultimediaDto> Multimedias { get; set; }
+        public List<MultimediaVM> Multimedias { get; set; }
     }
 }

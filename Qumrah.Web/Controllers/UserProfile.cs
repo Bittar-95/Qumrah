@@ -3,7 +3,9 @@ using aspnetcore.ntier.DTO.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Qumrah.Web.Models.UserProfile;
-
+using Microsoft.AspNet.Identity;
+using aspnetcore.ntier.DAL.Entities;
+using Qumrah.Web.Models.Multimedia;
 namespace Qumrah.Web.Controllers
 {
     [Authorize]
@@ -19,23 +21,57 @@ namespace Qumrah.Web.Controllers
             _configuration = configuration;
             _hostingEnvironment = hostingEnvironment;
         }
-        public async Task<IActionResult> index()
+        [AllowAnonymous]
+        public async Task<IActionResult> index(int? id)
         {
-            //var user = await _userService.GetAsync(User.Identity.Name);
-            //var editProfileVM = new EditProfileVM
-            //{
-            //    Description = user.Description,
-            //    TwitterLink = user.TwitterLink,
-            //    FBLink = user.FBLink,
-            //    FirstName = user.FirstName,
-            //    InstagramLink = user.InstagramLink,
-            //    LastName = user.LastName,
-            //    Email = user.Email,
-            //    ImagePath = user.ImagePath,
-            //    Location = user.Location,
-            //    WebsiteUrl = user.WebsiteUrl,
-            //};
-            return View();
+            int userId;
+            if (id == null && User.Identity.IsAuthenticated)
+            {
+                userId = Convert.ToInt32(User.Identity.GetUserId());
+            }
+            else
+            {
+                userId = id is null ? 0 : id.Value;
+            }
+
+            var user = _userService.GetWithImages(userId);
+            if (user is null)
+            {
+                return NotFound();
+            }
+            var editProfileVM = new IndexVM
+            {
+                Description = user.Description,
+                TwitterLink = user.TwitterLink,
+                FBLink = user.FBLink,
+                FirstName = user.FirstName,
+                InstagramLink = user.InstagramLink,
+                LastName = user.LastName,
+                Email = user.Email,
+                ImagePath = user.ImagePath,
+                Location = user.Location,
+                WebsiteUrl = user.WebsiteUrl,
+                Multimedias = new List<MultimediaVM>()
+            };
+
+            foreach (var multimedia in user.Multimedias)
+            {
+                var MM = new MultimediaVM()
+                {
+                    Id = multimedia.Id,
+                    FilePath = multimedia.FilePath,
+                    ThumbnailPath = multimedia.ThumbnailPath,
+                    Tags = multimedia.Tags,
+                    Height = multimedia.Height,
+                    Title = multimedia.Title,
+                    Location = multimedia.Location,
+                    TotalDownloads = multimedia.TotalDownloads,
+                    TotalViews = multimedia.TotalViews,
+                    Width = multimedia.Width,
+                };
+                editProfileVM.Multimedias.Add(MM);
+            }
+            return View(editProfileVM);
         }
         public async Task<IActionResult> Edit()
         {

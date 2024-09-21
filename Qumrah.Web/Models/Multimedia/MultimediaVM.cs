@@ -1,14 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace aspnetcore.ntier.DTO.DTOs
+﻿namespace Qumrah.Web.Models.Multimedia
 {
-    public class MultimediaDto
+    public class MultimediaVM
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -19,7 +11,6 @@ namespace aspnetcore.ntier.DTO.DTOs
         public double Height { get; set; }
         public int TotalDownloads { get; set; }
         public int TotalViews { get; set; }
-        public DateTime CreatedAt { get; set; }
         public int UserId { get; set; }
         public IFormFile Image { get; set; }
         public List<string> Tags { get; set; }

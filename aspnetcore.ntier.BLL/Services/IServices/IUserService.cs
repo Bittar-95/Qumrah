@@ -11,5 +11,6 @@ namespace aspnetcore.ntier.BLL.Services.IServices
     {
         Task EditAsync(EditUserDto model);
         Task<ApplicationUserDto> GetAsync(string Email);
+        ApplicationUserDto GetWithImages(int Id);
     }
 }

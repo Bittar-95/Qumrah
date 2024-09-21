@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Qumrah.Web</title>
+    <title>@ViewData["Title"] - قمرة</title>
     @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
     @* <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> *@
     @* <link rel="stylesheet" href="~/Qumrah.Web.styles.css" asp-append-version="true" /> *@
@@ -28,13 +28,15 @@
                 </div>
                 <div class="logo-text">قُمرة</div>
             </div>
-
-            <div class="navbar-add">
-                <div class="profile-image">
-                    <img src="/images/face.png" class="profile-icon">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="navbar-add">
+                    <div class="profile-image">
+                        <img src="/images/face.png" class="profile-icon">
+                    </div>
+                    <div class="add-button">إضافة صورة</div>
                 </div>
-                <div class="add-button">إضافة صورة</div>
-            </div>
+            }
         </div>
         @*         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
@@ -56,9 +58,7 @@
         </div>
         </nav> *@
     </header>
-    <div class="container">
-        @RenderBody()
-    </div>
+    @RenderBody()
 
     <div class="footer">
         <div class="footer-content">
