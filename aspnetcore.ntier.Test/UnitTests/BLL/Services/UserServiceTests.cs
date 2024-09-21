@@ -15,9 +15,9 @@ namespace aspnetcore.ntier.Test.UnitTests.BLL.Services;
 
 public class UserServiceTests
 {
-    private readonly IUserService _userService;
+    private readonly IUserServiceToRemove _userService;
     private readonly Mock<IUserRepository> _userRepository;
-    private readonly Mock<ILogger<UserService>> _logger;
+    private readonly Mock<ILogger<UserServiceToRemove>> _logger;
     private readonly IMapper _mapper;
 
     private const int UserId = 5;
@@ -56,13 +56,13 @@ public class UserServiceTests
             .Setup(repo => repo.GetAsync(It.IsAny<Expression<Func<User, bool>>>(), CancellationToken.None))
             .ReturnsAsync(_userEntity);
 
-        _logger = new Mock<ILogger<UserService>>();
+        _logger = new Mock<ILogger<UserServiceToRemove>>();
 
         var myProfile = new AutoMapperProfiles.AutoMapperProfile();
         var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
         _mapper = new Mapper(configuration);
 
-        _userService = new UserService(_userRepository.Object, _mapper, _logger.Object);
+        _userService = new UserServiceToRemove(_userRepository.Object, _mapper, _logger.Object);
     }
 
     [Fact]

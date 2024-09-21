@@ -17,7 +17,7 @@ public static class AutoMapperProfiles
             CreateMap<User, UserToReturnDTO>().ReverseMap();
             CreateMap<Multimedia, MultimediaDto>().ReverseMap();
             CreateMap<EditUserDto, ApplicationUser>();
-            CreateMap<ApplicationUser, ApplicationUserDto>().ReverseMap();
+            CreateMap<ApplicationUser, ApplicationUserDto>().ForMember(x => x.Email, x => x.MapFrom(x => x.Email.ToString())).ReverseMap();
 
 
         }

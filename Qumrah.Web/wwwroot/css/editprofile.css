@@ -1,0 +1,160 @@
+/* Global Reset */
+* {
+    box-sizing: border-box;
+    outline: none;
+}
+
+body {
+    font-family: "Almarai", sans-serif;
+    margin: 0px;
+    padding: 0px;
+    direction: rtl;
+}
+
+/* Main Content Styles */
+
+/* Container */
+.container {
+    max-width: 700px;
+    margin: 32px auto 64px auto;
+    text-align: center;
+    border-radius: 8px;
+}
+
+/* Title Styles */
+.h2 {
+    text-align: right;
+    margin-bottom: 32px;
+    color: #000;
+    font-family: Almarai;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 32px;
+}
+
+/* Profile Picture Section */
+.profile-picture {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+    .profile-picture img {
+        width: 120px;
+        height: 120px;
+        border-radius: 120px;
+        margin-left: 20px;
+    }
+
+    .profile-picture button {
+        padding: 8px 12px;
+        background: #1E86FF;
+        color: #FFF;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        padding: 8px 24px;
+        align-items: center;
+        border-radius: 4px;
+        font-family: Almarai;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 24px;
+    }
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    color: #3B4351;
+}
+
+label {
+    margin-bottom: 8px;
+    color: #3B4351;
+    display: block;
+    text-align: right;
+    font-family: Almarai;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+}
+
+/* Inputs and Textareas */
+input, textarea {
+    margin-bottom: 24px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    color: black;
+    text-align: right;
+    font-family: 'Almarai', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-radius: 6px;
+    border: 1px solid #C7D2E5;
+    background: #FFF;
+}
+
+textarea {
+    resize: none;
+}
+
+/* Placeholder Style */
+input::placeholder {
+    padding: 14px 0px;
+}
+
+/* Form Row and Grouping */
+.form-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-group {
+    width: 49%;
+}
+
+.bio-group {
+    width: 100%;
+}
+
+/* Divider */
+.mid-divider {
+    width: 700px;
+    height: 1px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #C7D2E5;
+    margin-bottom: 32px;
+}
+
+/* Bio Section */
+.bio {
+    height: 150px;
+}
+
+/* Save Button */
+button.save-btn {
+    padding: 12px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    width: 700px;
+    padding: 16px 32px;
+    justify-content: center;
+    align-items: center;
+    background: #1E86FF;
+    text-align: center;
+    font-family: Almarai;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+}
