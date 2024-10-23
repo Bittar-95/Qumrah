@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace aspnetcore.ntier.BLL.Utilities.ProcessingImages
 {
@@ -18,13 +19,26 @@ namespace aspnetcore.ntier.BLL.Utilities.ProcessingImages
             using (MagickImage image = new MagickImage(imageFile.OpenReadStream(), magicFormat))
             {
                 long imageLength = imageFile.Length;
-                image.Format = MagickFormat.WebP; // Get or Set the format of the image.
+                image.Format = magicFormat; // Get or Set the format of the image.
                 int quality = Convert.ToInt32(Math.Ceiling(imageLength / 1000000.0 * 1.5));
-
+                if (imageLength / 1000000.0 < 4)
+                {
+                    quality += 10;
+                }
                 image.Quality = quality; // This is the Compression level.
-
                 return image.ToByteArray();
             }
+        }
+
+        public (int Heght, int Width) GetImageAspectRation(IFormFile imageFile)
+        {
+            var magicFormat = (MagickFormat)Enum.Parse(typeof(MagickFormat), Path.GetExtension(imageFile.FileName).Replace(".", ""), true);
+
+            using (MagickImage image = new MagickImage(imageFile.OpenReadStream(), magicFormat))
+            {
+                return (image.Height, image.Width);
+            }
+
         }
 
         public List<string> ExtractColors(IFormFile imageFile)

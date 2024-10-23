@@ -9,6 +9,6 @@ namespace aspnetcore.ntier.BLL.Services.IServices
 {
     public interface IMultimediaService
     {
-        Task CreateMultimedia(MultimediaDto Model);
+        Task CreateMultimedia(MultimediaDto Model, string userEmail);
     }
 }

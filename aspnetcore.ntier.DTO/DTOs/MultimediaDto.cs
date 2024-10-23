@@ -10,6 +10,10 @@ namespace aspnetcore.ntier.DTO.DTOs
 {
     public class MultimediaDto
     {
+        public MultimediaDto()
+        {
+            CreatedAt = DateTime.UtcNow;
+        }
         public int Id { get; set; }
         public string Title { get; set; }
         public string Location { get; set; }

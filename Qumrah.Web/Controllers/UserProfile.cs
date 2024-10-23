@@ -6,6 +6,7 @@ using Qumrah.Web.Models.UserProfile;
 using Microsoft.AspNet.Identity;
 using aspnetcore.ntier.DAL.Entities;
 using Qumrah.Web.Models.Multimedia;
+using aspnetcore.ntier.BLL.Services.Multimedia;
 namespace Qumrah.Web.Controllers
 {
     [Authorize]
@@ -13,13 +14,15 @@ namespace Qumrah.Web.Controllers
     {
         private readonly IUserService _userService;
         private readonly IConfiguration _configuration;
+        private readonly IMultimediaService _multimediaService;
         private readonly Microsoft.AspNetCore.Hosting.IHostingEnvironment _hostingEnvironment;
 
-        public UserProfile(IUserService userService, IConfiguration configuration, Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment)
+        public UserProfile(IUserService userService, IConfiguration configuration, Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment, IMultimediaService multimediaService)
         {
             _userService = userService;
             _configuration = configuration;
             _hostingEnvironment = hostingEnvironment;
+            _multimediaService = multimediaService;
         }
         [AllowAnonymous]
         public async Task<IActionResult> index(int? id)
@@ -139,6 +142,27 @@ namespace Qumrah.Web.Controllers
                     WebsiteUrl = model.WebsiteUrl,
                 });
                 return RedirectToAction(nameof(Edit));
+            }
+            return View(model);
+        }
+
+        public IActionResult UploadImage()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadImage(UploadMultimediaVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                await _multimediaService.CreateMultimedia(new aspnetcore.ntier.DTO.DTOs.MultimediaDto
+                {
+                    Title = model.Title,
+                    Image = model.File,
+                    Tags = model.Tags,
+                    Location = model.Location
+                }, User.Identity.Name);
             }
             return View(model);
         }

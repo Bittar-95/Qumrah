@@ -1,0 +1,9 @@
+﻿@using Qumrah.Web.Models.Multimedia
+@model UploadMultimediaVM
+<div>
+    <form asp-action="UploadImage" enctype="multipart/form-data">
+        <input asp-for="Title" />
+        <input type="file" asp-for="File" />
+        <button type="submit">Upload</button>
+    </form>
+</div>
