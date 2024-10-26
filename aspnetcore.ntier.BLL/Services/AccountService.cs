@@ -1,6 +1,5 @@
 ﻿using aspnetcore.ntier.BLL.Services.IServices;
 using aspnetcore.ntier.DAL.Entities;
-using aspnetcore.ntier.DAL.Migrations;
 using aspnetcore.ntier.DTO.DTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;

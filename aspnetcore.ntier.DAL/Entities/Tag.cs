@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace aspnetcore.ntier.DAL.Entities
 {
-    public class Tag: BaseEntity<int>
+    public class Tag : BaseEntity<int>
     {
         public string Name { get; set; }
 
-        public List<Multimedia> Multimedias { get; set; }
+        public List<MultimediaTag> MultimediaTags { get; set; }
     }
 }

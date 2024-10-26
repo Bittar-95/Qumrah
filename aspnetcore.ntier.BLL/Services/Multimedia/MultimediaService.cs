@@ -25,18 +25,24 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
         private readonly IGenericRepository<MultimediaEntity> _multimediaRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IGenericRepository<ApplicationUser> _userRepository;
+        private readonly IGenericRepository<Tag> _tagRepository;
+        private readonly IGenericRepository<MultimediaTag> _multimediaTagRepository;
 
         public MultimediaService(ImageProcess imageProcess,
             IMapper mapper,
             IGenericRepository<MultimediaEntity> multimediaRepository,
             IWebHostEnvironment webHostEnvironment,
-            IGenericRepository<ApplicationUser> userRepository)
+            IGenericRepository<ApplicationUser> userRepository,
+            IGenericRepository<Tag> tagRepository,
+            IGenericRepository<MultimediaTag> multimediaTagRepository)
         {
             _imageProcess = imageProcess;
             _mapper = mapper;
             _multimediaRepository = multimediaRepository;
             _webHostEnvironment = webHostEnvironment;
             _userRepository = userRepository;
+            _tagRepository = tagRepository;
+            _multimediaTagRepository = multimediaTagRepository;
         }
 
         public async Task CreateMultimedia(MultimediaDto Model, string userEmail)
@@ -60,13 +66,26 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
 
             entity.ThumbnailPath = UploadedFile(compressedImage, imageExtension);
             entity.FilePath = UploadedFile(originalImage, imageExtension);
-            entity.Tags = Model.Tags?.Select(x => new Tag { Name = x }).ToList();
             entity.Title = Model.Title;
             entity.Colors = extractedColors.Select(x => new Color { Hexadecimal = x }).ToList();
             entity.Width = imageAspectRation.Heght;
             entity.Height = imageAspectRation.Width;
             entity.UserId = user.Id;
-            await _multimediaRepository.AddAsync(entity);
+            var result = await _multimediaRepository.AddAsync(entity);
+
+            if (Model.Tags is not null && Model.Tags.Count() > 0)
+            {
+                var tags = _mapper.Map<List<Tag>>(Model.Tags);
+                var multimediaTags = (await AddNewTags(tags)).Select(mmt => new MultimediaTag
+                {
+                    MultimediaId = result.Id,
+                    TagId = mmt.Id,
+                }).ToList();
+
+                await _multimediaTagRepository.AddRangeAsync(multimediaTags);
+            }
+
+
         }
 
 
@@ -92,6 +111,22 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
             string filePath = Path.Combine(uploadsFolder, uniqueFileName);
             File.WriteAllBytes(filePath, file);
             return uniqueFileName;
+        }
+
+        private async Task<List<Tag>> AddNewTags(List<Tag> Tags)
+        {
+            var results = new List<Tag>();
+
+            foreach (var tag in Tags)
+            {
+                var entity = await _tagRepository.GetAsync(x => x.Name == tag.Name.ToLower().Trim());
+                if (entity is null)
+                {
+                    entity = await _tagRepository.AddAsync(new Tag { Name = tag.Name.ToLower().Trim() });
+                }
+                results.Add(entity);
+            }
+            return results;
         }
     }
 }

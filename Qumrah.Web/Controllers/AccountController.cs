@@ -1,5 +1,4 @@
-﻿using aspnetcore.ntier.DAL.Migrations;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Qumrah.Web.Models.Account;
@@ -21,9 +20,13 @@ namespace Qumrah.Web.Controllers
             _accountService = accountService;
         }
 
-        public IActionResult Login()
+        public IActionResult Login(string? ReturnUrl)
         {
-            return View();
+
+            return View(new LoginVM
+            {
+                ReturnUrl = ReturnUrl,
+            });
         }
 
         [HttpPost]

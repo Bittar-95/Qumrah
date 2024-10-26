@@ -64,7 +64,7 @@ namespace Qumrah.Web.Controllers
                     Id = multimedia.Id,
                     FilePath = multimedia.FilePath,
                     ThumbnailPath = multimedia.ThumbnailPath,
-                    Tags = multimedia.Tags,
+                    Tags = multimedia.Tags?.Select(tn => tn.Name).ToList(),
                     Height = multimedia.Height,
                     Title = multimedia.Title,
                     Location = multimedia.Location,
@@ -160,7 +160,7 @@ namespace Qumrah.Web.Controllers
                 {
                     Title = model.Title,
                     Image = model.File,
-                    Tags = model.Tags,
+                    Tags = model.Tags?.Split(",").Distinct().Where(s => !string.IsNullOrEmpty(s.Trim())).Select(x => new TagDto { Name = x.Trim() }).ToList(),
                     Location = model.Location
                 }, User.Identity.Name);
             }

@@ -26,10 +26,9 @@ namespace aspnetcore.ntier.DAL.Entities
         public int TotalViews { get; set; }
         public DateTime CreatedAt { get; set; }
         public MultimediaType Type { get; set; } = MultimediaType.image;
-
         public int UserId { get; set; }
         public ApplicationUser User { get; set; }
-        public List<Tag> Tags { get; set; }
+        public List<MultimediaTag> MultimediaTags { get; set; }
         public List<Color> Colors { get; set; }
 
     }

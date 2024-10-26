@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace aspnetcore.ntier.DTO.DTOs
 {
-    internal class TagDto
+    public class TagDto
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
     }
 }

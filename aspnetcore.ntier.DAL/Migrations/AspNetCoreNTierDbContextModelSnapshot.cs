@@ -145,21 +145,6 @@ namespace aspnetcore.ntier.DAL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("MultimediaTag", b =>
-                {
-                    b.Property<int>("MultimediasId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MultimediasId", "TagsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("MultimediaTag");
-                });
-
             modelBuilder.Entity("aspnetcore.ntier.DAL.Entities.ApplicationUser", b =>
                 {
                     b.Property<int>("Id")
@@ -320,6 +305,28 @@ namespace aspnetcore.ntier.DAL.Migrations
                     b.ToTable("Multimedias");
                 });
 
+            modelBuilder.Entity("aspnetcore.ntier.DAL.Entities.MultimediaTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("MultimediaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MultimediaId");
+
+                    b.HasIndex("TagId", "MultimediaId")
+                        .IsUnique();
+
+                    b.ToTable("MultimediaTag");
+                });
+
             modelBuilder.Entity("aspnetcore.ntier.DAL.Entities.Tag", b =>
                 {
                     b.Property<int>("Id")
@@ -386,21 +393,6 @@ namespace aspnetcore.ntier.DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MultimediaTag", b =>
-                {
-                    b.HasOne("aspnetcore.ntier.DAL.Entities.Multimedia", null)
-                        .WithMany()
-                        .HasForeignKey("MultimediasId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("aspnetcore.ntier.DAL.Entities.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("aspnetcore.ntier.DAL.Entities.Color", b =>
                 {
                     b.HasOne("aspnetcore.ntier.DAL.Entities.Multimedia", "Multimedia")
@@ -423,6 +415,25 @@ namespace aspnetcore.ntier.DAL.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("aspnetcore.ntier.DAL.Entities.MultimediaTag", b =>
+                {
+                    b.HasOne("aspnetcore.ntier.DAL.Entities.Multimedia", "Multimedia")
+                        .WithMany("MultimediaTags")
+                        .HasForeignKey("MultimediaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("aspnetcore.ntier.DAL.Entities.Tag", "Tag")
+                        .WithMany("MultimediaTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Multimedia");
+
+                    b.Navigation("Tag");
+                });
+
             modelBuilder.Entity("aspnetcore.ntier.DAL.Entities.ApplicationUser", b =>
                 {
                     b.Navigation("Multimedias");
@@ -431,6 +442,13 @@ namespace aspnetcore.ntier.DAL.Migrations
             modelBuilder.Entity("aspnetcore.ntier.DAL.Entities.Multimedia", b =>
                 {
                     b.Navigation("Colors");
+
+                    b.Navigation("MultimediaTags");
+                });
+
+            modelBuilder.Entity("aspnetcore.ntier.DAL.Entities.Tag", b =>
+                {
+                    b.Navigation("MultimediaTags");
                 });
 #pragma warning restore 612, 618
         }

@@ -9,7 +9,7 @@ namespace Qumrah.Web.Models.Multimedia
         public IFormFile File { get; set; }
         public string? Title { get; set; }
         public string? Location { get; set; }
-        public List<string>? Tags { get; set; }
+        public string? Tags { get; set; }
 
 
     }
