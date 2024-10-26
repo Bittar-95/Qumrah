@@ -37,10 +37,16 @@
         <div class="container">
 
 
-            <div class="alert" id="ErrorCase" onclick="disableErrorCase()">
-                <div> يجب أن لا يتعدى حجم الصورة 25MB </div>
-                <div onclick="" style="font-weight: bold;">✕</div>
-            </div>
+            @if (ViewBag.Error is not null)
+            {
+                <!-- Errors Go Here -->
+
+                <div class="alert" onclick="disableErrorCase()">
+                    <div> ViewBag.Error</div>
+                    <div onclick="" style="font-weight: bold;">✕</div>
+                </div>
+                ViewBag.Error = null;
+            }
 
 
 
@@ -53,13 +59,14 @@
                             موقع الصورة (إختياري)
                         </label>
                         <input asp-for="Title" placeholder="أدخل عنوان الصورة">
+                        <span asp-validation-for="Title"></span>
                     </div>
-                    <div>
-                        <label for="imageData">
-                            تاريخ التقاط الصورة (إختياري)
-                        </label>
-                        <input type="text" style="cursor: pointer;" id="arabicDatePicker" name="imageData" placeholder="أدخل تاريخ التقاط الصورة">
-                    </div>
+                    @*          <div>
+                    <label for="imageData">
+                    تاريخ التقاط الصورة (إختياري)
+                    </label>
+                    <input type="text" style="cursor: pointer;" id="arabicDatePicker" name="imageData" placeholder="أدخل تاريخ التقاط الصورة">
+                    </div> *@
 
                     <div>
                         <label asp-for="Tags">
@@ -67,6 +74,8 @@
                         </label>
                         <textarea asp-for="Tags" class="imagekey"
                                   placeholder="أدخل الكلمات المفتاحية للصورة"></textarea>
+                        <span asp-validation-for="Tags"></span>
+
                     </div>
 
 
@@ -114,6 +123,13 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="/js/main.js"></script>
     <script src="/js/Upload_Image.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $.validator.setDefaults({ ignore: null });
+    </script>
 </body>
 </html>

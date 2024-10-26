@@ -92,22 +92,22 @@ document.getElementById('userImage').addEventListener('dragleave', function() {
 
 
 // Set Arabic datetime localization for datepicker
-$.datepicker.setDefaults({
-    closeText: 'إغلاق',
-    prevText: 'السابق',
-    nextText: 'التالي',
-    currentText: 'اليوم',
-    monthNames: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
-    monthNamesShort: ['ينا', 'فبرا', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبت', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
-    dayNames: ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
-    dayNamesShort: ['أحد', 'اثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'],
-    dayNamesMin: ['أح', 'اث', 'ثلا', 'أرب', 'خم', 'جم', 'سبت'],
-    weekHeader: 'أسبوع',
-    dateFormat: 'dd/mm/yy', // Adjust the date format as needed
-    firstDay: 0,
-    isRTL: true
-});
+//$.datepicker.setDefaults({
+//    closeText: 'إغلاق',
+//    prevText: 'السابق',
+//    nextText: 'التالي',
+//    currentText: 'اليوم',
+//    monthNames: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
+//    monthNamesShort: ['ينا', 'فبرا', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبت', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
+//    dayNames: ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
+//    dayNamesShort: ['أحد', 'اثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'],
+//    dayNamesMin: ['أح', 'اث', 'ثلا', 'أرب', 'خم', 'جم', 'سبت'],
+//    weekHeader: 'أسبوع',
+//    dateFormat: 'dd/mm/yy', // Adjust the date format as needed
+//    firstDay: 0,
+//    isRTL: true
+//});
 
-$(function() {
-    $("#arabicDatePicker").datepicker();
-});
+//$(function() {
+//    $("#arabicDatePicker").datepicker();
+//});

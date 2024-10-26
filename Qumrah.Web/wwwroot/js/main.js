@@ -7,7 +7,7 @@ function closeButton1(event) {
 }
 
 // Add event listener directly to the element with the ID 'ErrorCase1'
-document.getElementById('ErrorCase1').addEventListener('click', closeButton1);
+//document.getElementById('ErrorCase1').addEventListener('click', closeButton1);
 
 
 ////////////////////////////////////////////////////////////////////////
