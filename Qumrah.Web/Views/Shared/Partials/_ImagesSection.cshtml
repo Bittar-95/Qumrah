@@ -1,0 +1,27 @@
+﻿@using Qumrah.Web.Models.Multimedia
+@model List<MultimediaVM>
+<!-- Person Images -->
+<section class="person_images">
+
+    <div class="grid-container">
+
+        <div>
+            @for (int i = 0; i < Model.Count(); i += 3)
+            {
+                <img src="@string.Concat("/images/",Model[i].ThumbnailPath)" class="image">
+            }
+        </div>
+        <div>
+            @for (int i = 1; i < Model.Count(); i += 3)
+            {
+                <img src="@string.Concat("/images/",Model[i].ThumbnailPath)" class="image">
+            }
+        </div>
+        <div>
+            @for (int i = 2; i < Model.Count(); i += 3)
+            {
+                <img src="@string.Concat("/images/",Model[i].ThumbnailPath)" class="image">
+            }
+        </div>
+    </div>
+</section>

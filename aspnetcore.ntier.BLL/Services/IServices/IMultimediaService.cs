@@ -10,5 +10,6 @@ namespace aspnetcore.ntier.BLL.Services.IServices
     public interface IMultimediaService
     {
         Task CreateMultimedia(MultimediaDto Model, string userEmail);
+        Task<List<MultimediaDto>> GetAsync(FilterMultimediaDto filter);
     }
 }

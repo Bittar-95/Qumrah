@@ -8,6 +8,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -88,6 +89,16 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
 
         }
 
+        public async Task<List<MultimediaDto>> GetAsync(FilterMultimediaDto filter)
+        {
+            var results = await _multimediaRepository.GetListAsync(x =>
+            (string.IsNullOrEmpty(filter.Title) || x.Title.Contains(filter.Title)) &&
+            (string.IsNullOrEmpty(filter.Location) || x.Location.Contains(filter.Location))
+
+            );
+            return _mapper.Map<List<MultimediaDto>>(results).OrderByDescending(x => x.TotalDownloads).ToList();
+        }
+
 
         private byte[] ConvertStreamToBytes(Stream input)
         {
@@ -102,7 +113,6 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
                 return ms.ToArray();
             }
         }
-
         private string UploadedFile(byte[] file, string extension)
         {
             string uniqueFileName = null;
@@ -112,7 +122,6 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
             File.WriteAllBytes(filePath, file);
             return uniqueFileName;
         }
-
         private async Task<List<Tag>> AddNewTags(List<Tag> Tags)
         {
             var results = new List<Tag>();

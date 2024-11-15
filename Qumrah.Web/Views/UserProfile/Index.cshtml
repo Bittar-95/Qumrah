@@ -88,32 +88,8 @@
     </section>
 </div>
 
+@await Html.PartialAsync("~/Views/Shared/Partials/_ImagesSection.cshtml", Model.Multimedias);
 
 
-<!-- Person Images -->
-<section class="person_images">
-
-    <div class="grid-container">
-
-        <div>
-            @for (int i = 0; i < Model.Multimedias.Count(); i += 3)
-            {
-                <img src="@string.Concat("/images/",Model.Multimedias[i].ThumbnailPath)" class="image">
-            }
-        </div>
-        <div>
-            @for (int i = 1; i < Model.Multimedias.Count(); i += 3)
-            {
-                <img src="@string.Concat("/images/",Model.Multimedias[i].ThumbnailPath)" class="image">
-            }
-        </div>
-        <div>
-            @for (int i = 2; i < Model.Multimedias.Count(); i += 3)
-            {
-                <img src="@string.Concat("/images/",Model.Multimedias[i].ThumbnailPath)" class="image">
-            }
-        </div>
-    </div>
-</section>
 
 
