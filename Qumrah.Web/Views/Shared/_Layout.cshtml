@@ -1,4 +1,16 @@
-﻿<!DOCTYPE html>
+﻿@using aspnetcore.ntier.BLL.Services.IServices
+@using aspnetcore.ntier.DTO.DTOs
+@inject IUserService _userService;
+@{
+    ApplicationUserDto model = new ApplicationUserDto();
+    if (User.Identity.IsAuthenticated)
+    {
+        model = await _userService.GetAsync(User.Identity.Name);
+    }
+    var imgProfilePath = !string.IsNullOrEmpty(model.ImagePath) ? model.ImagePath : "/images/face.png";
+
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -13,8 +25,17 @@
     <link rel="stylesheet" href="~/css/fonts.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/header-footercss.css" asp-append-version="true">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/home.css">
     @await RenderSectionAsync("Header", required: false)
+    <style>
+        .remove-under-line {
+            text-decoration: none;
+        }
 
+        .text-black {
+            color: black;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -30,15 +51,31 @@
                 </div>
                 <div class="logo-text">قُمرة</div>
             </div>
-            @if (User.Identity.IsAuthenticated)
-            {
-                <div class="navbar-add">
-                    <div class="profile-image">
-                        <img src="/images/face.png" class="profile-icon">
-                    </div>
-                    <a asp-action="UploadImage" asp-controller="UserProfile" class="add-button">إضافة صورة</a>
+
+            <div class="navbar-add">
+                <div class="profile-image">
+                    <img src="@imgProfilePath" class="profile-icon">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="profilePop">
+                            <div>
+                                <a class="remove-under-line text-black" asp-controller="UserProfile">ملفي الشخصي</a>
+                            </div>
+                            <div>
+                                <a class="remove-under-line text-black" asp-action="Logout" asp-controller="Account">تسجيل الخروج</a>
+                            </div>
+                        </div>
+
+                    }
+
                 </div>
-            }
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <a class="sign_up remove-under-line" asp-action="login" asp-controller="Account">  تسجيل الدخول  </a>
+                }
+                <a asp-action="UploadImage" asp-controller="UserProfile" class="add-button remove-under-line">إضافة صورة</a>
+            </div>
+
         </div>
         @*         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
