@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MultimediaEntity = aspnetcore.ntier.DAL.Entities.Multimedia;
+using TagEntity = aspnetcore.ntier.DAL.Entities.Tag;
 
 namespace aspnetcore.ntier.BLL.Services.Multimedia
 {
@@ -26,7 +27,7 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
         private readonly IGenericRepository<MultimediaEntity> _multimediaRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IGenericRepository<ApplicationUser> _userRepository;
-        private readonly IGenericRepository<Tag> _tagRepository;
+        private readonly IGenericRepository<TagEntity> _tagRepository;
         private readonly IGenericRepository<MultimediaTag> _multimediaTagRepository;
 
         public MultimediaService(ImageProcess imageProcess,
@@ -34,7 +35,7 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
             IGenericRepository<MultimediaEntity> multimediaRepository,
             IWebHostEnvironment webHostEnvironment,
             IGenericRepository<ApplicationUser> userRepository,
-            IGenericRepository<Tag> tagRepository,
+            IGenericRepository<TagEntity> tagRepository,
             IGenericRepository<MultimediaTag> multimediaTagRepository)
         {
             _imageProcess = imageProcess;
@@ -76,7 +77,7 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
 
             if (Model.Tags is not null && Model.Tags.Count() > 0)
             {
-                var tags = _mapper.Map<List<Tag>>(Model.Tags);
+                var tags = _mapper.Map<List<TagEntity>>(Model.Tags);
                 var multimediaTags = (await AddNewTags(tags)).Select(mmt => new MultimediaTag
                 {
                     MultimediaId = result.Id,
@@ -93,9 +94,8 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
         {
             var results = await _multimediaRepository.GetListAsync(x =>
             (string.IsNullOrEmpty(filter.Title) || x.Title.Contains(filter.Title)) &&
-            (string.IsNullOrEmpty(filter.Location) || x.Location.Contains(filter.Location))
-
-            );
+            (filter.TagId == null || x.MultimediaTags.Where(x => x.TagId == filter.TagId).Any())
+            , default, x => x.MultimediaTags);
             return _mapper.Map<List<MultimediaDto>>(results).OrderByDescending(x => x.TotalDownloads).ToList();
         }
 
@@ -122,16 +122,16 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
             File.WriteAllBytes(filePath, file);
             return uniqueFileName;
         }
-        private async Task<List<Tag>> AddNewTags(List<Tag> Tags)
+        private async Task<List<TagEntity>> AddNewTags(List<TagEntity> Tags)
         {
-            var results = new List<Tag>();
+            var results = new List<TagEntity>();
 
             foreach (var tag in Tags)
             {
                 var entity = await _tagRepository.GetAsync(x => x.Name == tag.Name.ToLower().Trim());
                 if (entity is null)
                 {
-                    entity = await _tagRepository.AddAsync(new Tag { Name = tag.Name.ToLower().Trim() });
+                    entity = await _tagRepository.AddAsync(new TagEntity { Name = tag.Name.ToLower().Trim() });
                 }
                 results.Add(entity);
             }

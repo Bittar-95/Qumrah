@@ -3,6 +3,6 @@
     public class FilterMultimediaViewModel
     {
         public string Title { get; set; }
-        public string Location { get; set; }
+        public int? TagId { get; set; }
     }
 }

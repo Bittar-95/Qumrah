@@ -21,6 +21,7 @@ using aspnetcore.ntier.BLL.Services.Multimedia;
 using aspnetcore.ntier.BLL.Utilities.ProcessingImages;
 using AutoMapper;
 using aspnetcore.ntier.BLL.Services.User;
+using aspnetcore.ntier.BLL.Services.Tag;
 
 namespace aspnetcore.ntier.BLL;
 
@@ -38,6 +39,7 @@ public static class DependencyInjection
         services.AddValidatorsFromAssemblyContaining<UserToLoginDTOValidator>();
         services.AddValidatorsFromAssemblyContaining<UserToRegisterDTOValidator>();
         services.AddScoped<IMultimediaService, MultimediaService>();
+        services.AddScoped<ITagService, TagService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ImageProcess>();
 

@@ -9,6 +9,6 @@ namespace aspnetcore.ntier.DTO.DTOs
     public class FilterMultimediaDto
     {
         public string Title { get; set; }
-        public string Location { get; set; }
+        public int? TagId { get; set; }
     }
 }

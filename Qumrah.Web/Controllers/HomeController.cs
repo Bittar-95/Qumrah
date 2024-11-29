@@ -16,11 +16,13 @@ namespace Qumrah.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IMultimediaService _multimediaService;
+        private readonly ITagService _tagService;
 
-        public HomeController(ILogger<HomeController> logger, IMultimediaService multimediaService)
+        public HomeController(ILogger<HomeController> logger, IMultimediaService multimediaService, ITagService tagService)
         {
             _logger = logger;
             _multimediaService = multimediaService;
+            _tagService = tagService;
         }
 
         public async Task<IActionResult> Index(FilterMultimediaViewModel filter)
@@ -29,11 +31,14 @@ namespace Qumrah.Web.Controllers
             var filterDto = new FilterMultimediaDto
             {
                 Title = filter.Title,
-                Location = filter.Location
+                TagId = filter.TagId
             };
             var multimedia = await _multimediaService.GetAsync(filterDto);
 
             var multimediaVM = new List<MultimediaVM>();
+
+            var Tags = await _tagService.GetAll(true);
+
 
             foreach (var item in multimedia)
             {
@@ -58,6 +63,7 @@ namespace Qumrah.Web.Controllers
                 Multimedia = multimediaVM
             };
 
+            model.Tags = Tags;
             return View(model);
         }
         public IActionResult Privacy()

@@ -41,10 +41,10 @@
     </form>
 
     <div class="NicePlaces">
-        @foreach (var location in Model.Locations)
+        @foreach (var tag in Model.Tags)
         {
-            <form asp-action="index" asp-route-Location="@location">
-                <button type="submit">@location</button>
+            <form asp-action="index" asp-route-TagId="@tag.Id">
+                <button type="submit">@tag.Name</button>
             </form>
         }
     </div>
