@@ -1,6 +1,16 @@
 ﻿@using Qumrah.Web.Models.Multimedia
 @model List<MultimediaVM>
 
+@functions {
+    public string GetFullImagePath(string imageName)
+    {
+        return string.Concat("/images/", imageName);
+    }
+    public string GetFullUserName(string firstName, string lastName)
+    {
+        return string.Concat(firstName, " ", lastName);
+    }
+}
 <section class="person_images">
     <aside class="right-image">
         @for (int i = 0; i < Model.Count(); i += 3)
@@ -11,11 +21,11 @@
                     <section class="overlay-profile">
                         <a asp-action="index" asp-controller="userprofile" asp-route-Id="@Model[i].User.Id" class="overlay-profile-img-name">
                             <img src="@Model[i].User.ImagePath" alt="Profile" class="profile-icon">
-                            <div class="name"> اسم المستخدم </div>
+                            <div class="name"> @GetFullUserName(Model[i].User.FirstName, Model[i].User.LastName) </div>
                         </a>
                         <div class="overlay-profile-img-download">
-                            <a href="#" class="button">
-                                <button class="dowmload-Image-button" download="">
+                            <a class="button" href="@GetFullImagePath(Model[i].FilePath)" download>
+                                <button class="dowmload-Image-button">
                                     <img src="images/download_icon.svg">
                                     <p>تحميل الصورة</p>
                                 </button>
@@ -36,11 +46,11 @@
                     <section class="overlay-profile">
                         <a asp-action="index" asp-controller="userprofile" asp-route-Id="@Model[i].User.Id" class="overlay-profile-img-name">
                             <img src="@Model[i].User.ImagePath" alt="Profile" class="profile-icon">
-                            <div class="name"> اسم المستخدم </div>
+                            <div class="name"> @GetFullUserName(Model[i].User.FirstName, Model[i].User.LastName) </div>
                         </a>
                         <div class="overlay-profile-img-download">
-                            <a href="#" class="button">
-                                <button class="dowmload-Image-button" download="">
+                            <a class="button" href="@GetFullImagePath(Model[i].FilePath)" download>
+                                <button class="dowmload-Image-button">
                                     <img src="images/download_icon.svg">
                                     <p>تحميل الصورة</p>
                                 </button>
@@ -61,11 +71,11 @@
                     <section class="overlay-profile">
                         <a asp-action="index" asp-controller="userprofile" asp-route-Id="@Model[i].User.Id" class="overlay-profile-img-name">
                             <img src="@Model[i].User.ImagePath" alt="Profile" class="profile-icon">
-                            <div class="name"> اسم المستخدم </div>
+                            <div class="name"> @GetFullUserName(Model[i].User.FirstName, Model[i].User.LastName) </div>
                         </a>
                         <div class="overlay-profile-img-download">
-                            <a href="#" class="button">
-                                <button class="dowmload-Image-button" download="">
+                            <a class="button" href="@GetFullImagePath(Model[i].FilePath)" download>
+                                <button class="dowmload-Image-button">
                                     <img src="images/download_icon.svg">
                                     <p>تحميل الصورة</p>
                                 </button>

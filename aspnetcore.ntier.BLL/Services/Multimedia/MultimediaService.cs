@@ -98,6 +98,11 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
             , default, x => x.MultimediaTags, x => x.User);
             return _mapper.Map<List<MultimediaDto>>(results).OrderByDescending(x => x.TotalDownloads).ToList();
         }
+        public async Task<MultimediaDto> GetAsync(int Id)
+        {
+            var results = await _multimediaRepository.GetAsync(m => m.Id == Id);
+            return _mapper.Map<MultimediaDto>(results);
+        }
 
 
         private byte[] ConvertStreamToBytes(Stream input)

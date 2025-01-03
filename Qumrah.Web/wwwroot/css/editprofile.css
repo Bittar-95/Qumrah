@@ -1,4 +1,3 @@
-/* Global Reset */
 * {
     box-sizing: border-box;
     outline: none;
@@ -11,9 +10,92 @@ body {
     direction: rtl;
 }
 
-/* Main Content Styles */
+/* Start */
 
-/* Container */
+/* Navbar Padding */
+.navbar-padding {
+    height: 90px;
+}
+
+/* Main Navbar */
+.navbar {
+    top: 0;
+    left: 0;
+    z-index: 1;
+    position: fixed;
+    width: 100%;
+    background-color: #FFF;
+    padding: 16px 80px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #C7D2E5;
+}
+
+/* Logo Section */
+.navbar-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-image {
+    margin-left: 12px;
+}
+
+.logo-icon {
+    width: 56px;
+}
+
+.logo-text {
+    color: #3B4351;
+    font-family: Almarai;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 50px;
+    text-align: center;
+}
+
+/* Add Image Section */
+.navbar-add {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-image {
+    width: 48px;
+    height: 48px;
+    margin-left: 32px;
+}
+
+.profile-icon {
+    width: 100%;
+    height: 100%;
+}
+
+.add-button {
+    display: flex;
+    padding: 16px 32px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    background: #1E86FF;
+    color: #FFF;
+    font-family: Almarai;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+
+/* ==================================== */
 .container {
     max-width: 700px;
     margin: 32px auto 64px auto;
@@ -21,7 +103,6 @@ body {
     border-radius: 8px;
 }
 
-/* Title Styles */
 .h2 {
     text-align: right;
     margin-bottom: 32px;
@@ -32,7 +113,6 @@ body {
     line-height: 32px;
 }
 
-/* Profile Picture Section */
 .profile-picture {
     display: flex;
     flex-direction: row;
@@ -63,7 +143,6 @@ body {
         line-height: 24px;
     }
 
-/* Form Styles */
 form {
     display: flex;
     flex-direction: column;
@@ -81,7 +160,6 @@ label {
     line-height: 21px;
 }
 
-/* Inputs and Textareas */
 input, textarea {
     margin-bottom: 24px;
     padding: 12px;
@@ -101,6 +179,7 @@ input, textarea {
     background: #FFF;
 }
 
+
 textarea {
     resize: none;
 }
@@ -109,8 +188,6 @@ textarea {
 input::placeholder {
     padding: 14px 0px;
 }
-
-/* Form Row and Grouping */
 .form-row {
     display: flex;
     justify-content: space-between;
@@ -124,7 +201,6 @@ input::placeholder {
     width: 100%;
 }
 
-/* Divider */
 .mid-divider {
     width: 700px;
     height: 1px;
@@ -134,12 +210,10 @@ input::placeholder {
     margin-bottom: 32px;
 }
 
-/* Bio Section */
 .bio {
     height: 150px;
 }
 
-/* Save Button */
 button.save-btn {
     padding: 12px;
     color: white;
@@ -151,10 +225,162 @@ button.save-btn {
     padding: 16px 32px;
     justify-content: center;
     align-items: center;
+    border-radius: 6px;
     background: #1E86FF;
     text-align: center;
     font-family: Almarai;
     font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+
+
+input, textarea {
+    color: black;
+    text-align: right;
+    font-family: 'Almarai', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    display: flex;
+    padding: 14px;
+    justify-content: flex-end;
+    align-items: center;
+    align-self: stretch;
+    border-radius: 6px;
+    border: 1px solid #C7D2E5;
+    background: #FFF
+}
+
+    input::placeholder {
+        padding: 14px 0px;
+    }
+
+
+
+/* Footer */
+
+
+
+.footer {
+    background-color: #0A2840; /* Add a background if needed */
+    width: 100%;
+    padding: 24px 48px;
+    background: #26374B;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 80px;
+}
+
+.footer-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-logo-img {
+    width: 56px;
+    height: 56px;
+    margin-left: 12px;
+}
+
+.footer-site-title {
+    color: #FFF;
+    font-family: Almarai;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 50px;
+    margin-left: 80px;
+}
+
+.footer-link {
+    color: #FFF;
+    text-align: right;
+    font-family: Almarai;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 27px;
+    margin-left: 40px;
+}
+
+.footer-icons {
+    display: flex;
+    width: 160px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-social-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.footer-divider {
+    opacity: 0.4002;
+    background: #81A0C3;
+    height: 1px;
+    align-self: stretch;
+}
+
+.footer-rights {
+    margin-top: 16px;
+    color: #C4D2E2;
+    text-align: center;
+    font-family: Almarai;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 21px;
+}
+
+
+
+
+
+
+
+
+/* Success update */
+#update-profile-box {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.success-edit-box {
+    display: flex;
+    width: 573px;
+    padding: 16px;
+    margin: 92px auto;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    border-radius: 4px;
+    background: #3B4351;
+}
+
+.success-edit-text {
+    color: #FFF;
+    text-align: right;
+    font-family: Almarai;
+    font-size: 16px;
+    font-style: normal;
     font-weight: 700;
     line-height: 24px;
 }

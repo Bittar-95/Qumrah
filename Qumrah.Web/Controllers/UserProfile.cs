@@ -142,6 +142,7 @@ namespace Qumrah.Web.Controllers
                     Location = model.Location,
                     WebsiteUrl = model.WebsiteUrl,
                 });
+                TempData["Success"] = true;
                 return RedirectToAction(nameof(Edit));
             }
             return View(model);

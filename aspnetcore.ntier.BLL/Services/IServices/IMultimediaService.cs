@@ -11,5 +11,6 @@ namespace aspnetcore.ntier.BLL.Services.IServices
     {
         Task CreateMultimedia(MultimediaDto Model, string userEmail);
         Task<List<MultimediaDto>> GetAsync(FilterMultimediaDto filter);
+        Task<MultimediaDto> GetAsync(int Id);
     }
 }
