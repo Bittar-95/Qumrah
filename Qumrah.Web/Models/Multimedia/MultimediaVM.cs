@@ -1,4 +1,6 @@
-﻿namespace Qumrah.Web.Models.Multimedia
+﻿using aspnetcore.ntier.DTO.DTOs;
+
+namespace Qumrah.Web.Models.Multimedia
 {
     public class MultimediaVM
     {
@@ -14,5 +16,7 @@
         public int UserId { get; set; }
         public IFormFile Image { get; set; }
         public List<string> Tags { get; set; }
+        public ApplicationUserDto User { get; set; }
+
     }
 }

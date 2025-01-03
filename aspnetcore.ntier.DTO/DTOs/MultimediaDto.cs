@@ -27,5 +27,6 @@ namespace aspnetcore.ntier.DTO.DTOs
         public int UserId { get; set; }
         public IFormFile Image { get; set; }
         public List<TagDto> Tags { get; set; }
+        public ApplicationUserDto User { get; set; }
     }
 }

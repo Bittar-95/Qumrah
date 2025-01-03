@@ -95,7 +95,7 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
             var results = await _multimediaRepository.GetListAsync(x =>
             (string.IsNullOrEmpty(filter.Title) || x.Title.Contains(filter.Title)) &&
             (filter.TagId == null || x.MultimediaTags.Where(x => x.TagId == filter.TagId).Any())
-            , default, x => x.MultimediaTags);
+            , default, x => x.MultimediaTags, x => x.User);
             return _mapper.Map<List<MultimediaDto>>(results).OrderByDescending(x => x.TotalDownloads).ToList();
         }
 

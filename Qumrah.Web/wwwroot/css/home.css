@@ -1,6 +1,8 @@
 * {
     box-sizing: border-box;
     outline: none;
+    list-style: none;
+    text-decoration: none;
 }
 
 body {
@@ -143,6 +145,116 @@ body {
 
 
 
+/*  */
+
+
+
+.search-button-nav {
+    width: 650px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #A4B3CC;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+    .search-button-nav input {
+        border-radius: 0px 6px 6px 0px;
+        background: #FFF;
+        width: 594px;
+        border: none;
+        display: flex;
+        padding: 16px;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .search-button-nav button {
+        display: flex;
+        width: 56px;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        align-self: stretch;
+        border: none;
+        cursor: pointer;
+        border-radius: 6px 0px 0px 6px;
+        background: #1E86FF;
+    }
+
+
+
+
+
+.input_field-nav {
+    font-family: 'Almarai', sans-serif;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+}
+
+    .input_field-nav::placeholder {
+        color: #A4B3CC !important;
+        text-align: right !important;
+        font-family: Almarai !important;
+        font-size: 16px !important;
+        font-style: normal !important;
+        font-weight: 400 !important;
+        line-height: 24px !important;
+        padding: 1px;
+    }
+
+    .input_field-nav::-webkit-input-placeholder {
+        color: #A4B3CC !important;
+        text-align: right !important;
+        font-family: Almarai !important;
+        font-size: 16px !important;
+        font-style: normal !important;
+        font-weight: 400 !important;
+        line-height: 24px !important;
+        padding: 1px;
+    }
+
+    .input_field-nav::-moz-placeholder {
+        color: #A4B3CC !important;
+        text-align: right !important;
+        font-family: Almarai !important;
+        font-size: 16px !important;
+        font-style: normal !important;
+        font-weight: 400 !important;
+        line-height: 24px !important;
+        padding: 1px;
+    }
+
+    .input_field-nav:-ms-input-placeholder {
+        color: #A4B3CC !important;
+        text-align: right !important;
+        font-family: Almarai !important;
+        font-size: 16px !important;
+        font-style: normal !important;
+        font-weight: 400 !important;
+        line-height: 24px !important;
+        padding: 1px;
+    }
+
+    .input_field-nav::-ms-input-placeholder {
+        color: #A4B3CC !important;
+        text-align: right !important;
+        font-family: Almarai !important;
+        font-size: 16px !important;
+        font-style: normal !important;
+        font-weight: 400 !important;
+        line-height: 24px !important;
+        padding: 1px;
+    }
+
+
+/*  */
+
+
+
+
 .NicePlaces {
     display: flex;
 }
@@ -183,6 +295,7 @@ body {
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #C7D2E5;
+    box-shadow: 0px 20px 50px 0px rgba(0, 0, 0, 0.10);
 }
 
 /* Logo Section */
@@ -292,13 +405,152 @@ body {
 /* ================================== */
 
 .person_images {
+    width: 100%;
     padding: 1.6%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
-    .person_images img {
-        width: calc(30% - 2px);
-        margin: 1.6%;
+    .person_images aside {
+        width: calc(31% - 2px);
+        display: flex;
+        flex-direction: column;
+        display: block;
+        margin: .5%;
+        clear: both;
     }
+
+        .person_images aside div img {
+            margin: 1%;
+            max-width: 100%;
+            width: auto;
+        }
+
+
+.container-image-overlay {
+    position: relative;
+    display: inline-block;
+}
+
+
+.overlay {
+    margin: 1%;
+    position: absolute;
+    top: 2;
+    left: -2;
+    width: 100%;
+    height: calc(99% - 8px);
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.3s ease;
+    /* z-index: 1; */
+    opacity: 0;
+}
+
+div:hover .overlay {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.overlay .overlay-profile {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    cursor: default;
+}
+
+.overlay .overlay-profile-img-name {
+    position: absolute;
+    top: 24px;
+    right: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+    .overlay .overlay-profile-img-name .name {
+        cursor: pointer;
+        color: #FFF;
+        font-family: Almarai;
+        font-size: 16px;
+        font-style: normal;
+        white-space: nowrap;
+        font-weight: 700;
+        line-height: 24px;
+        margin-right: 16px;
+        width: 250px;
+        overflow: hidden; /* Hide any overflowed text */
+        /* text-overflow: ellipsis; */
+    }
+
+    .overlay .overlay-profile-img-name img {
+        cursor: pointer;
+        width: auto;
+        height: auto;
+        max-width: 40px;
+        max-height: 40px;
+    }
+
+
+
+
+.overlay .overlay-profile-img-download {
+    position: absolute;
+    left: 0px;
+    bottom: 16px;
+    width: 100%;
+    display: flex;
+    padding: 14px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+    .overlay .overlay-profile-img-download a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        color: #FFF;
+        cursor: pointer;
+        font-family: Almarai;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 24px;
+    }
+
+.dowmload-Image-button {
+    cursor: pointer;
+    max-width: 400px !important;
+    display: block;
+    width: calc(100% - 20px) !important;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    color: #fff;
+    background: #1E86FF;
+    font-family: Almarai;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+
+.ImageLoader {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 
 /* footer */

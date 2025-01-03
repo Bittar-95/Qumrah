@@ -54,6 +54,7 @@ namespace Qumrah.Web.Controllers
                     TotalDownloads = item.TotalDownloads,
                     TotalViews = item.TotalViews,
                     Width = item.Width,
+                    User = item.User
                 };
                 multimediaVM.Add(MM);
             }

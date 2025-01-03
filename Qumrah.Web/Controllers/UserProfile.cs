@@ -71,6 +71,7 @@ namespace Qumrah.Web.Controllers
                     TotalDownloads = multimedia.TotalDownloads,
                     TotalViews = multimedia.TotalViews,
                     Width = multimedia.Width,
+                    User = multimedia.User
                 };
                 editProfileVM.Multimedias.Add(MM);
             }
