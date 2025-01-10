@@ -1,13 +1,17 @@
-﻿using aspnetcore.ntier.BLL.Services.IServices;
+﻿using aspnetcore.ntier.BLL.Services.AWS.S3;
+using aspnetcore.ntier.BLL.Services.IServices;
 using aspnetcore.ntier.BLL.Utilities.CustomExceptions;
 using aspnetcore.ntier.BLL.Utilities.ProcessingImages;
 using aspnetcore.ntier.DAL.Entities;
 using aspnetcore.ntier.DAL.Repositories.IRepositories;
 using aspnetcore.ntier.DTO.DTOs;
+using aspnetcore.ntier.DTO.DTOs.AWS.S3;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -29,6 +33,9 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
         private readonly IGenericRepository<ApplicationUser> _userRepository;
         private readonly IGenericRepository<TagEntity> _tagRepository;
         private readonly IGenericRepository<MultimediaTag> _multimediaTagRepository;
+        private readonly IAWSS3Service _AWSS3Service;
+        private readonly IConfiguration _configuration;
+
 
         public MultimediaService(ImageProcess imageProcess,
             IMapper mapper,
@@ -36,7 +43,9 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
             IWebHostEnvironment webHostEnvironment,
             IGenericRepository<ApplicationUser> userRepository,
             IGenericRepository<TagEntity> tagRepository,
-            IGenericRepository<MultimediaTag> multimediaTagRepository)
+            IGenericRepository<MultimediaTag> multimediaTagRepository,
+            IAWSS3Service aWSS3Service,
+            IConfiguration configuration)
         {
             _imageProcess = imageProcess;
             _mapper = mapper;
@@ -45,11 +54,14 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
             _userRepository = userRepository;
             _tagRepository = tagRepository;
             _multimediaTagRepository = multimediaTagRepository;
+            _AWSS3Service = aWSS3Service;
+            _configuration = configuration;
         }
 
         public async Task CreateMultimedia(MultimediaDto Model, string userEmail)
         {
             var user = await _userRepository.GetAsync(x => x.Email == userEmail);
+            var buckets = _configuration.GetSection("Buckets");
             if (user is null)
             {
                 throw new UserNotFoundException();
@@ -66,8 +78,13 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
 
             var extractedColors = _imageProcess.ExtractColors(Model.Image);
 
-            entity.ThumbnailPath = UploadedFile(compressedImage, imageExtension);
-            entity.FilePath = UploadedFile(originalImage, imageExtension);
+            var thumbnailUrl = _configuration.GetSection("AWSUrls").GetValue<string>("ProfileThumbnail");
+            var originUrl = _configuration.GetSection("AWSUrls").GetValue<string>("ProfileOrigin");
+
+
+            entity.ThumbnailPath = string.Concat(thumbnailUrl, await UploadedFile(compressedImage, imageExtension, buckets.GetValue<string>("Thumbnail")));
+            entity.FilePath = string.Concat(originUrl, await UploadedFile(originalImage, imageExtension, buckets.GetValue<string>("Origin")));
+
             entity.Title = Model.Title;
             entity.Colors = extractedColors.Select(x => new Color { Hexadecimal = x }).ToList();
             entity.Width = imageAspectRation.Heght;
@@ -118,13 +135,17 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
                 return ms.ToArray();
             }
         }
-        private string UploadedFile(byte[] file, string extension)
+        private async Task<string> UploadedFile(byte[] file, string extension, string bucketName)
         {
             string uniqueFileName = null;
-            string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
             uniqueFileName = string.Concat(Guid.NewGuid().ToString(), extension);
-            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-            File.WriteAllBytes(filePath, file);
+
+            await _AWSS3Service.UploadFileAsync(new AWSS3Dto
+            {
+                File = file,
+                BucketName = bucketName,
+                FileName = uniqueFileName
+            });
             return uniqueFileName;
         }
         private async Task<List<TagEntity>> AddNewTags(List<TagEntity> Tags)

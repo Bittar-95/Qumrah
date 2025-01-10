@@ -22,6 +22,7 @@ using aspnetcore.ntier.BLL.Utilities.ProcessingImages;
 using AutoMapper;
 using aspnetcore.ntier.BLL.Services.User;
 using aspnetcore.ntier.BLL.Services.Tag;
+using aspnetcore.ntier.BLL.Services.AWS.S3;
 
 namespace aspnetcore.ntier.BLL;
 
@@ -42,6 +43,9 @@ public static class DependencyInjection
         services.AddScoped<ITagService, TagService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ImageProcess>();
+        services.AddScoped<IAWSS3Service, AWSS3Service>();
+
+
 
         #region Versioning
 
