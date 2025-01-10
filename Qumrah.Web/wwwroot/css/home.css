@@ -19,7 +19,7 @@ body {
 
 /* Main Theme */
 .main-theme {
-    background-image: url('../images/childread.png'); /* Replace with your image URL */
+    background-image: url('https://web-images-qomra.s3.eu-west-1.amazonaws.com/childread.png'); /* Replace with your image URL */
     background-size: cover;
     height: 525px;
     background-position: center;

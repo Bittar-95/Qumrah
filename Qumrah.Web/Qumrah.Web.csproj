@@ -24,8 +24,4 @@
 		<ProjectReference Include="..\aspnetcore.ntier.BLL\aspnetcore.ntier.BLL.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<Folder Include="wwwroot\images\Profiles\" />
-	</ItemGroup>
-
 </Project>

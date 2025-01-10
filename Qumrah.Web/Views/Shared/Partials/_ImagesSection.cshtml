@@ -4,7 +4,7 @@
 @functions {
     public string GetFullImagePath(string imageName)
     {
-        return string.Concat("/images/", imageName);
+        return string.Concat("https://web-images-qomra.s3.eu-west-1.amazonaws.com/", imageName);
     }
     public string GetFullUserName(string firstName, string lastName)
     {
@@ -34,7 +34,7 @@
                         </div>
                     </section>
                 </div>
-                <img src="@string.Concat("/images/",Model[i].ThumbnailPath)" class="image">
+                <img src="@Model[i].ThumbnailPath" class="image">
             </div>
         }
     </aside>
@@ -59,7 +59,7 @@
                         </div>
                     </section>
                 </div>
-                <img src="@string.Concat("/images/",Model[i].ThumbnailPath)" class="image">
+                <img src="@Model[i].ThumbnailPath" class="image">
             </div>
         }
     </aside>
@@ -76,7 +76,7 @@
                         <div class="overlay-profile-img-download">
                             <a class="button" href="@GetFullImagePath(Model[i].FilePath)" download>
                                 <button class="dowmload-Image-button">
-                                    <img src="images/download_icon.svg">
+                                    <img src="https://web-images-qomra.s3.eu-west-1.amazonaws.com/download_icon.svg">
                                     <p>تحميل الصورة</p>
                                 </button>
                             </a>
@@ -84,7 +84,7 @@
                         </div>
                     </section>
                 </div>
-                <img src="@string.Concat("/images/",Model[i].ThumbnailPath)" class="image">
+                <img src="@Model[i].ThumbnailPath" class="image">
             </div>
 
         }

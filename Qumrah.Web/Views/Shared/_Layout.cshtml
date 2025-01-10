@@ -7,7 +7,7 @@
     {
         model = await _userService.GetAsync(User.Identity.Name);
     }
-    var imgProfilePath = !string.IsNullOrEmpty(model.ImagePath) ? model.ImagePath : "/images/face.png";
+    var imgProfilePath = !string.IsNullOrEmpty(model.ImagePath) ? model.ImagePath : "https://web-images-qomra.s3.eu-west-1.amazonaws.com/face.png";
     ViewBag.ImageProfilePath = imgProfilePath;
 
 }
@@ -47,7 +47,7 @@
                 <div class="logo-image">
 
                     <a asp-action="Index" asp-controller="Home">
-                        <img src="/images/logo.png" class="logo-icon">
+                        <img src="https://web-images-qomra.s3.eu-west-1.amazonaws.com/logo.png" class="logo-icon">
                     </a>
                 </div>
                 <div class="logo-text">قُمرة</div>
@@ -103,16 +103,16 @@
     <div class="footer">
         <div class="footer-content">
             <div class="footer-left">
-                <img src="/images/white-logo.png" class="footer-logo-img">
+                <img src="https://web-images-qomra.s3.eu-west-1.amazonaws.com/white-logo.png" class="footer-logo-img">
                 <span class="footer-site-title">قُمرة</span>
                 <span class="footer-link">عن الموقع</span>
                 <span class="footer-link">سياسة الإستخدام</span>
             </div>
 
             <div class="footer-icons">
-                <img class="footer-social-icon" alt="Instagram" src="/images/white_instagram.png">
-                <img class="footer-social-icon" alt="Facebook" src="/images/white_facebook.png">
-                <img class="footer-social-icon" alt="Twitter" src="/images/white_twitter.png">
+                <img class="footer-social-icon" alt="Instagram" src="https://web-images-qomra.s3.eu-west-1.amazonaws.com/white_instagram.png">
+                <img class="footer-social-icon" alt="Facebook" src="https://web-images-qomra.s3.eu-west-1.amazonaws.com/white_facebook.png">
+                <img class="footer-social-icon" alt="Twitter" src="https://web-images-qomra.s3.eu-west-1.amazonaws.com/white_twitter.png">
             </div>
         </div>
 

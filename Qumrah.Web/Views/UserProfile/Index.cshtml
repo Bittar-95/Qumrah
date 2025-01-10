@@ -2,7 +2,7 @@
 @model IndexVM
 @{
     ViewBag.Title = "الصفحة الشخصية";
-    var imagePath = string.IsNullOrEmpty(Model.ImagePath) ? "/images/Profile_Picture.png" : Model.ImagePath;
+    var imagePath = string.IsNullOrEmpty(Model.ImagePath) ? "https://web-images-qomra.s3.eu-west-1.amazonaws.com/Profile_Picture.png" : Model.ImagePath;
 }
 @section Header {
     <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true">
@@ -40,7 +40,7 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <a asp-action="Edit" class="profile-edit-button" style="text-decoration:none">
-                        <img src="/images/edit_icon.png" alt="Edit Icon" class="edit-icon">
+                        <img src="https://web-images-qomra.s3.eu-west-1.amazonaws.com/edit_icon.png" alt="Edit Icon" class="edit-icon">
                         <div class="edit-text">تعديل الملف</div>
                     </a>
                 }
@@ -50,7 +50,7 @@
         <div class="profile-location">
             @if (!string.IsNullOrEmpty(Model.Location))
             {
-                <img src="/images/location_icon.png" alt="Location" class="location-icon">
+                <img src="https://web-images-qomra.s3.eu-west-1.amazonaws.com/location_icon.png" alt="Location" class="location-icon">
                 <span class="location-text">@Model.Location</span>
 
                 <div class="divider"></div>
@@ -58,26 +58,26 @@
             @if (!string.IsNullOrEmpty(Model.WebsiteUrl))
             {
                 <a href="@Model.WebsiteUrl" class="profile-social-icon">
-                    <img src="/images/web_icon.png" alt="Website" class="profile-social-icon">
+                    <img src="https://web-images-qomra.s3.eu-west-1.amazonaws.com/web_icon.png" alt="Website" class="profile-social-icon">
                 </a>
 
             }
             @if (!string.IsNullOrEmpty(Model.InstagramLink))
             {
                 <a href="@Model.InstagramLink" class="profile-social-icon">
-                    <img src="/images/instagram_logo.png" alt="Instagram" class="profile-social-icon">
+                    <img src="https://web-images-qomra.s3.eu-west-1.amazonaws.com/instagram_logo.png" alt="Instagram" class="profile-social-icon">
                 </a>
             }
             @if (!string.IsNullOrEmpty(Model.FBLink))
             {
                 <a href="@Model.FBLink" class="profile-social-icon">
-                    <img src="/images/facebook_logo.png" alt="Facebook" class="profile-social-icon">
+                    <img src="https://web-images-qomra.s3.eu-west-1.amazonaws.com/facebook_logo.png" alt="Facebook" class="profile-social-icon">
                 </a>
             }
             @if (!string.IsNullOrEmpty(Model.TwitterLink))
             {
                 <a href="@Model.TwitterLink" class="profile-social-icon">
-                    <img src="/images/twitter_logo.png" alt="Twitter" class="profile-social-icon">
+                    <img src="https://web-images-qomra.s3.eu-west-1.amazonaws.com/twitter_logo.png" alt="Twitter" class="profile-social-icon">
                 </a>
             }
         </div>

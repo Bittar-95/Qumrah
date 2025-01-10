@@ -2,7 +2,7 @@
 @model EditProfileVM
 @{
     ViewBag.Title = "الصفحة الشخصية";
-    var imagePath = string.IsNullOrEmpty(Model.ImagePath) ? "/images/Profile_Picture.png" : Model.ImagePath;
+    var imagePath = string.IsNullOrEmpty(Model.ImagePath) ? "https://web-images-qomra.s3.eu-west-1.amazonaws.com/Profile_Picture.png" : Model.ImagePath;
 }
 @section Header{
     <link rel="stylesheet" href="~/css/editprofile.css" asp-append-version="true">

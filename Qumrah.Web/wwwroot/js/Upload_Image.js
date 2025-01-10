@@ -59,7 +59,7 @@ function dropImage(event) {
 function removeImage() {
     // Reset the image preview
     const preview = document.getElementById('preview');
-    preview.src = './images/upload_icon_blue.png'; // Reset to default icon
+    preview.src = '.https://web-images-qomra.s3.eu-west-1.amazonaws.com/upload_icon_blue.png'; // Reset to default icon
 
     // Hide the remove button
     document.getElementById('removeImage').style.display = 'none';
