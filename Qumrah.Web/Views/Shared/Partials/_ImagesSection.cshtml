@@ -1,10 +1,13 @@
 ﻿@using Qumrah.Web.Models.Multimedia
 @model List<MultimediaVM>
+@{
 
+    var downloadImageURL = "https://web-images-qomra.s3.eu-west-1.amazonaws.com/download_icon.svg";
+}
 @functions {
-    public string GetFullImagePath(string imageName)
+    public string GetFullImagePath(string filePath)
     {
-        return string.Concat("https://web-images-qomra.s3.eu-west-1.amazonaws.com/", imageName);
+        return !string.IsNullOrEmpty(filePath) ? filePath : "https://web-images-qomra.s3.eu-west-1.amazonaws.com/faceSmall.png";
     }
     public string GetFullUserName(string firstName, string lastName)
     {
@@ -20,13 +23,13 @@
                 <div class="overlay">
                     <section class="overlay-profile">
                         <a asp-action="index" asp-controller="userprofile" asp-route-Id="@Model[i].User.Id" class="overlay-profile-img-name">
-                            <img src="@Model[i].User.ImagePath" alt="Profile" class="profile-icon">
+                            <img src="@GetFullImagePath(Model[i].User.ImagePath)" alt="Profile" class="profile-icon">
                             <div class="name"> @GetFullUserName(Model[i].User.FirstName, Model[i].User.LastName) </div>
                         </a>
                         <div class="overlay-profile-img-download">
-                            <a class="button" href="@GetFullImagePath(Model[i].FilePath)" download>
+                            <a class="button" href="@Model[i].FilePath" download>
                                 <button class="dowmload-Image-button">
-                                    <img src="images/download_icon.svg">
+                                    <img src="@downloadImageURL">
                                     <p>تحميل الصورة</p>
                                 </button>
                             </a>
@@ -45,13 +48,13 @@
                 <div class="overlay">
                     <section class="overlay-profile">
                         <a asp-action="index" asp-controller="userprofile" asp-route-Id="@Model[i].User.Id" class="overlay-profile-img-name">
-                            <img src="@Model[i].User.ImagePath" alt="Profile" class="profile-icon">
+                            <img src="@GetFullImagePath(Model[i].User.ImagePath)" alt="Profile" class="profile-icon">
                             <div class="name"> @GetFullUserName(Model[i].User.FirstName, Model[i].User.LastName) </div>
                         </a>
                         <div class="overlay-profile-img-download">
-                            <a class="button" href="@GetFullImagePath(Model[i].FilePath)" download>
+                            <a class="button" href="@Model[i].FilePath" download>
                                 <button class="dowmload-Image-button">
-                                    <img src="images/download_icon.svg">
+                                    <img src="@downloadImageURL">
                                     <p>تحميل الصورة</p>
                                 </button>
                             </a>
@@ -70,13 +73,13 @@
                 <div class="overlay">
                     <section class="overlay-profile">
                         <a asp-action="index" asp-controller="userprofile" asp-route-Id="@Model[i].User.Id" class="overlay-profile-img-name">
-                            <img src="@Model[i].User.ImagePath" alt="Profile" class="profile-icon">
+                            <img src="@GetFullImagePath(Model[i].User.ImagePath)" alt="Profile" class="profile-icon">
                             <div class="name"> @GetFullUserName(Model[i].User.FirstName, Model[i].User.LastName) </div>
                         </a>
                         <div class="overlay-profile-img-download">
-                            <a class="button" href="@GetFullImagePath(Model[i].FilePath)" download>
+                            <a class="button" href="@Model[i].FilePath" download>
                                 <button class="dowmload-Image-button">
-                                    <img src="https://web-images-qomra.s3.eu-west-1.amazonaws.com/download_icon.svg">
+                                    <img src="@downloadImageURL">
                                     <p>تحميل الصورة</p>
                                 </button>
                             </a>
@@ -91,5 +94,5 @@
     </aside>
 </section>
 <div class="ImageLoader">
-    <img src="images/loader.gif" alt="loader">
+    <img src="https://web-images-qomra.s3.eu-west-1.amazonaws.com/loader.gif" alt="loader">
 </div>
