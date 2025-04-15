@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using aspnetcore.ntier.DAL.Entities;
 using Qumrah.Web.Models.Multimedia;
 using aspnetcore.ntier.BLL.Services.Multimedia;
+using X.PagedList.Extensions;
+using aspnetcore.ntier.BLL.Utilities.Extensions;
 namespace Qumrah.Web.Controllers
 {
     [Authorize]
@@ -25,8 +27,9 @@ namespace Qumrah.Web.Controllers
             _multimediaService = multimediaService;
         }
         [AllowAnonymous]
-        public async Task<IActionResult> index(int? id)
+        public async Task<IActionResult> index(int? id, int pageNumber = 1)
         {
+            int pageSize = 10;
             int userId;
             if (id == null && User.Identity.IsAuthenticated)
             {
@@ -57,7 +60,7 @@ namespace Qumrah.Web.Controllers
                 Multimedias = new List<MultimediaVM>()
             };
 
-            foreach (var multimedia in user.Multimedias)
+            foreach (var multimedia in user.Multimedias.ToPagedList(pageNumber, pageSize))
             {
                 var MM = new MultimediaVM()
                 {

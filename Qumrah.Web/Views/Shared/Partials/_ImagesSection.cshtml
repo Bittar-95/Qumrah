@@ -14,85 +14,80 @@
         return string.Concat(firstName, " ", lastName);
     }
 }
-<section class="person_images">
-    <aside class="right-image">
-        @for (int i = 0; i < Model.Count(); i += 3)
-        {
+<aside class="right-image">
+    @for (int i = 0; i < Model.Count(); i += 3)
+    {
 
-            <div class="container-image-overlay">
-                <div class="overlay">
-                    <section class="overlay-profile">
-                        <a asp-action="index" asp-controller="userprofile" asp-route-Id="@Model[i].User.Id" class="overlay-profile-img-name">
-                            <img src="@GetFullImagePath(Model[i].User.ImagePath)" alt="Profile" class="profile-icon">
-                            <div class="name"> @GetFullUserName(Model[i].User.FirstName, Model[i].User.LastName) </div>
+        <div class="container-image-overlay">
+            <div class="overlay">
+                <section class="overlay-profile">
+                    <a asp-action="index" asp-controller="userprofile" asp-route-Id="@Model[i].User.Id" class="overlay-profile-img-name">
+                        <img src="@GetFullImagePath(Model[i].User.ImagePath)" alt="Profile" class="profile-icon">
+                        <div class="name"> @GetFullUserName(Model[i].User.FirstName, Model[i].User.LastName) </div>
+                    </a>
+                    <div class="overlay-profile-img-download">
+                        <a class="button" asp-action="DownloadImage" asp-controller="Multimedia" asp-route-Id="@Model[i].Id" download>
+                            <button class="dowmload-Image-button">
+                                <img src="@downloadImageURL">
+                                <p>تحميل الصورة</p>
+                            </button>
                         </a>
-                        <div class="overlay-profile-img-download">
-                            <a class="button" href="@Model[i].FilePath" download>
-                                <button class="dowmload-Image-button">
-                                    <img src="@downloadImageURL">
-                                    <p>تحميل الصورة</p>
-                                </button>
-                            </a>
 
-                        </div>
-                    </section>
-                </div>
-                <img src="@Model[i].ThumbnailPath" class="image">
+                    </div>
+                </section>
             </div>
-        }
-    </aside>
-    <aside class="middile-image">
-        @for (int i = 1; i < Model.Count(); i += 3)
-        {
-            <div class="container-image-overlay">
-                <div class="overlay">
-                    <section class="overlay-profile">
-                        <a asp-action="index" asp-controller="userprofile" asp-route-Id="@Model[i].User.Id" class="overlay-profile-img-name">
-                            <img src="@GetFullImagePath(Model[i].User.ImagePath)" alt="Profile" class="profile-icon">
-                            <div class="name"> @GetFullUserName(Model[i].User.FirstName, Model[i].User.LastName) </div>
+            <img src="@Model[i].ThumbnailPath" class="image">
+        </div>
+    }
+</aside>
+<aside class="middile-image">
+    @for (int i = 1; i < Model.Count(); i += 3)
+    {
+        <div class="container-image-overlay">
+            <div class="overlay">
+                <section class="overlay-profile">
+                    <a asp-action="index" asp-controller="userprofile" asp-route-Id="@Model[i].User.Id" class="overlay-profile-img-name">
+                        <img src="@GetFullImagePath(Model[i].User.ImagePath)" alt="Profile" class="profile-icon">
+                        <div class="name"> @GetFullUserName(Model[i].User.FirstName, Model[i].User.LastName) </div>
+                    </a>
+                    <div class="overlay-profile-img-download">
+                        <a class="button" asp-action="DownloadImage" asp-controller="Multimedia" asp-route-Id="@Model[i].Id" download>
+                            <button class="dowmload-Image-button">
+                                <img src="@downloadImageURL">
+                                <p>تحميل الصورة</p>
+                            </button>
                         </a>
-                        <div class="overlay-profile-img-download">
-                            <a class="button" href="@Model[i].FilePath" download>
-                                <button class="dowmload-Image-button">
-                                    <img src="@downloadImageURL">
-                                    <p>تحميل الصورة</p>
-                                </button>
-                            </a>
 
-                        </div>
-                    </section>
-                </div>
-                <img src="@Model[i].ThumbnailPath" class="image">
+                    </div>
+                </section>
             </div>
-        }
-    </aside>
-    <aside class="left-image">
-        @for (int i = 2; i < Model.Count(); i += 3)
-        {
-            <div class="container-image-overlay">
-                <div class="overlay">
-                    <section class="overlay-profile">
-                        <a asp-action="index" asp-controller="userprofile" asp-route-Id="@Model[i].User.Id" class="overlay-profile-img-name">
-                            <img src="@GetFullImagePath(Model[i].User.ImagePath)" alt="Profile" class="profile-icon">
-                            <div class="name"> @GetFullUserName(Model[i].User.FirstName, Model[i].User.LastName) </div>
+            <img src="@Model[i].ThumbnailPath" class="image">
+        </div>
+    }
+</aside>
+<aside class="left-image">
+    @for (int i = 2; i < Model.Count(); i += 3)
+    {
+        <div class="container-image-overlay">
+            <div class="overlay">
+                <section class="overlay-profile">
+                    <a asp-action="index" asp-controller="userprofile" asp-route-Id="@Model[i].User.Id" class="overlay-profile-img-name">
+                        <img src="@GetFullImagePath(Model[i].User.ImagePath)" alt="Profile" class="profile-icon">
+                        <div class="name"> @GetFullUserName(Model[i].User.FirstName, Model[i].User.LastName) </div>
+                    </a>
+                    <div class="overlay-profile-img-download">
+                        <a class="button" asp-action="DownloadImage" asp-controller="Multimedia" asp-route-Id="@Model[i].Id" download>
+                            <button class="dowmload-Image-button">
+                                <img src="@downloadImageURL">
+                                <p>تحميل الصورة</p>
+                            </button>
                         </a>
-                        <div class="overlay-profile-img-download">
-                            <a class="button" href="@Model[i].FilePath" download>
-                                <button class="dowmload-Image-button">
-                                    <img src="@downloadImageURL">
-                                    <p>تحميل الصورة</p>
-                                </button>
-                            </a>
 
-                        </div>
-                    </section>
-                </div>
-                <img src="@Model[i].ThumbnailPath" class="image">
+                    </div>
+                </section>
             </div>
+            <img src="@Model[i].ThumbnailPath" class="image">
+        </div>
 
-        }
-    </aside>
-</section>
-<div class="ImageLoader">
-    <img src="https://web-images-qomra.s3.eu-west-1.amazonaws.com/loader.gif" alt="loader">
-</div>
+    }
+</aside>

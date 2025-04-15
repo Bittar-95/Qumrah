@@ -3,6 +3,8 @@ using aspnetcore.ntier.DAL.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
+using X.PagedList;
+using X.PagedList.Extensions;
 
 namespace aspnetcore.ntier.DAL.Repositories;
 
@@ -63,6 +65,25 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         return await en.ToListAsync();
     }
 
+    public IPagedList<TEntity> GetPagedList(int pageNumber, int pageSize, Expression<Func<TEntity, bool>> filter = null, CancellationToken cancellationToken = default, params Expression<Func<TEntity, object>>[] includes)
+    {
+        var en = _aspNetCoreNTierDbContext.Set<TEntity>().AsQueryable();
+
+        if (includes is not null)
+        {
+            foreach (var item in includes)
+            {
+                en = en.Include(item);
+            }
+        }
+        if (filter is not null)
+        {
+            en = en.Where(filter);
+        }
+
+        return en.ToPagedList(pageNumber, pageSize);
+    }
+
     public async Task<TEntity> UpdateAsync(TEntity entity)
     {
         _ = _aspNetCoreNTierDbContext.Update(entity);
@@ -76,4 +97,5 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         await _aspNetCoreNTierDbContext.SaveChangesAsync();
         return entity;
     }
+
 }

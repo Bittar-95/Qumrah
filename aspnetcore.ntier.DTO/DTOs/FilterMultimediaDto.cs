@@ -10,5 +10,7 @@ namespace aspnetcore.ntier.DTO.DTOs
     {
         public string Title { get; set; }
         public int? TagId { get; set; }
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; } = 10;
     }
 }

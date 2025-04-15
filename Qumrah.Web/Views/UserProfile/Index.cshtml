@@ -88,8 +88,15 @@
     </section>
 </div>
 
-@await Html.PartialAsync("~/Views/Shared/Partials/_ImagesSection.cshtml", Model.Multimedias);
-
-
-
-
+<section class="person_images images-container">
+    @await Html.PartialAsync("~/Views/Shared/Partials/_ImagesSection.cshtml", Model.Multimedias);
+</section>
+<div class="ImageLoader">
+    <img src="https://web-images-qomra.s3.eu-west-1.amazonaws.com/loader.gif" alt="loader" id="loader-icon">
+</div>
+@section Scripts {
+    @await Html.PartialAsync("~/Views/Shared/Partials/_ImagesSectionScripts.cshtml");
+    <script>
+        initImageSectionScripts("UserProfile/index",2);
+    </script>
+}

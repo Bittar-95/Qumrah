@@ -9,6 +9,7 @@ namespace aspnetcore.ntier.BLL.Services.IServices
 {
     public interface IAWSS3Service
     {
+        Task<byte[]> GetObjectAsync(string bucketName, string Key);
         Task<bool> UploadFileAsync(AWSS3Dto aWSS3Dto);
     }
 }

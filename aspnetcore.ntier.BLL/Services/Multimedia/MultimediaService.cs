@@ -19,6 +19,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using X.PagedList;
 using MultimediaEntity = aspnetcore.ntier.DAL.Entities.Multimedia;
 using TagEntity = aspnetcore.ntier.DAL.Entities.Tag;
 
@@ -114,6 +115,18 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
             (filter.TagId == null || x.MultimediaTags.Where(x => x.TagId == filter.TagId).Any())
             , default, x => x.MultimediaTags, x => x.User);
             return _mapper.Map<List<MultimediaDto>>(results).OrderByDescending(x => x.TotalDownloads).ToList();
+        }
+
+
+        public IPagedList<MultimediaDto> Get(FilterMultimediaDto filter)
+        {
+            var multimedia = _multimediaRepository.GetPagedList(filter.PageNumber, filter.PageSize, x =>
+            (string.IsNullOrEmpty(filter.Title) || x.Title.Contains(filter.Title)) &&
+            (filter.TagId == null || x.MultimediaTags.Where(x => x.TagId == filter.TagId).Any())
+            , default, x => x.MultimediaTags, x => x.User);
+
+            var results = _mapper.Map<IEnumerable<MultimediaDto>>(multimedia);
+            return new PagedList<MultimediaDto>(multimedia.GetMetaData(), results);
         }
         public async Task<MultimediaDto> GetAsync(int Id)
         {

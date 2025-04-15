@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using X.PagedList;
 
 namespace aspnetcore.ntier.DAL.Repositories.IRepositories;
 
@@ -13,4 +14,5 @@ public interface IGenericRepository<T> where T : class, new()
     Task<List<T>> AddRangeAsync(List<T> entity);
     Task<List<T>> UpdateRangeAsync(List<T> entity);
     DbSet<T> Get();
+    IPagedList<T> GetPagedList(int pageNumber, int pageSize, Expression<Func<T, bool>> filter = null, CancellationToken cancellationToken = default, params Expression<Func<T, object>>[] includes);
 }

@@ -8,7 +8,7 @@
     "environment"    : "QumrahWeb-dev",
     "enable-xray"    : false,
     "enhanced-health-type" : "basic",
-    "additional-options"   : "\"aws:autoscaling:launchconfiguration,SecurityGroups\"=\"sg-0976b330294937609\";\"aws:ec2:vpc,Subnets\"=\"subnet-0646fd45bc6751e76\"",
+    "additional-options"   : "",
     "solution-stack"       : "64bit Amazon Linux 2 v2.8.6 running .NET Core",
     "environment-type"     : "SingleInstance",
     "cname"                : "qumrahweb-dev",

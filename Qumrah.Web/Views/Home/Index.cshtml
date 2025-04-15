@@ -1,7 +1,7 @@
 ﻿@using Qumrah.Web.Models.Multimedia
 @model IndexViewModel;
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "الصفحة الرئيسية";
 }
 @section Header {
     <style>
@@ -51,4 +51,15 @@
 
 </section>
 
-@await Html.PartialAsync("~/Views/Shared/Partials/_ImagesSection.cshtml", Model.Multimedia);
+<section class="person_images images-container">
+    @await Html.PartialAsync("~/Views/Shared/Partials/_ImagesSection.cshtml", Model.Multimedia);
+</section>
+<div class="ImageLoader">
+    <img src="https://web-images-qomra.s3.eu-west-1.amazonaws.com/loader.gif" alt="loader" id="loader-icon">
+</div>
+@section Scripts {
+    @await Html.PartialAsync("~/Views/Shared/Partials/_ImagesSectionScripts.cshtml");
+    <script>
+        initImageSectionScripts("home/GetImagesApi",2);
+    </script>
+}

@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -55,6 +56,32 @@ namespace aspnetcore.ntier.BLL.Services.AWS.S3
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        public async Task<byte[]> GetObjectAsync(string bucketName, string Key)
+        {
+            {
+                // Create a GetObject request
+                var request = new GetObjectRequest
+                {
+                    BucketName = bucketName,
+                    Key = Key,
+                };
+
+                // Issue request and remember to dispose of the response
+                using GetObjectResponse response = await _awsS3Client.GetObjectAsync(request);
+                return ConvertStreamToArrayOfByte(response.ResponseStream);
+
+            }
+        }
+
+        private byte[] ConvertStreamToArrayOfByte(Stream input)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                input.CopyTo(ms);
+                return ms.ToArray();
             }
         }
     }

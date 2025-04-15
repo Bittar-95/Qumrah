@@ -1,5 +1,7 @@
+using Amazon.S3.Model;
 using aspnetcore.ntier.BLL.Services.IServices;
 using aspnetcore.ntier.BLL.Services.Multimedia;
+using aspnetcore.ntier.BLL.Utilities.Extensions;
 using aspnetcore.ntier.DAL.Entities;
 using aspnetcore.ntier.DTO.DTOs;
 using Microsoft.AspNetCore.Authorization;
@@ -31,9 +33,11 @@ namespace Qumrah.Web.Controllers
             var filterDto = new FilterMultimediaDto
             {
                 Title = filter.Title,
-                TagId = filter.TagId
+                TagId = filter.TagId,
+                PageNumber = 1,
+                PageSize = 10
             };
-            var multimedia = await _multimediaService.GetAsync(filterDto);
+            var multimedia = _multimediaService.Get(filterDto);
 
             var multimediaVM = new List<MultimediaVM>();
 
@@ -77,6 +81,41 @@ namespace Qumrah.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public async Task<IActionResult> GetImagesApi(FilterMultimediaViewModel model)
+        {
+            var multimediaVM = new List<MultimediaVM>();
+            var filterDto = new FilterMultimediaDto
+            {
+                Title = model.Title,
+                TagId = model.TagId,
+                PageNumber = model.PageNumber,
+                PageSize = model.PageSize
+            };
+
+            var multimedia = _multimediaService.Get(filterDto);
+
+            foreach (var item in multimedia)
+            {
+                var MM = new MultimediaVM()
+                {
+                    Id = item.Id,
+                    FilePath = item.FilePath,
+                    ThumbnailPath = item.ThumbnailPath,
+                    Tags = item.Tags?.Select(tn => tn.Name).ToList(),
+                    Height = item.Height,
+                    Title = item.Title,
+                    Location = item.Location,
+                    TotalDownloads = item.TotalDownloads,
+                    TotalViews = item.TotalViews,
+                    Width = item.Width,
+                    User = item.User
+                };
+                multimediaVM.Add(MM);
+            }
+            var results = new { Html = await this.RenderViewToStringAsync("~/Views/Shared/Partials/_ImagesSection.cshtml", multimediaVM), PaginationMetaData = multimedia.GetMetaData() };
+            return Ok(results);
         }
     }
 }

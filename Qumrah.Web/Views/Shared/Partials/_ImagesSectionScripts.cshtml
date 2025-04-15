@@ -1,0 +1,64 @@
+﻿@await Html.PartialAsync("~/Views/Shared/Partials/_AxiosScripts.cshtml");
+
+<script>
+       let isLastPage=false;
+    $.fn.isInViewport = function () {
+       var elementTop = $(this).offset().top;
+       var elementBottom = elementTop + $(this).outerHeight();
+
+       var viewportTop = $(window).scrollTop();
+       var viewportBottom = viewportTop + $(window).height();
+
+       return elementBottom > viewportTop && elementTop < viewportBottom;
+    };
+    let isRequestCompleted = true;
+    $(window).on('resize scroll', function () {
+       if ($('#loader-icon').isInViewport() && isRequestCompleted && !isLastPage) {
+          isRequestCompleted = false;
+          let queryString = `pageNumber=${pageNumber}`;
+
+          axios({
+                method: 'get',
+                url: urlPath+'?'+queryString
+             })
+             .then(function (response) {
+                    var results = $(response.data.html)
+
+                        console.log(response.data)
+                for (let i = 0; i < results.length; i++) {
+                   let subElement = $(results[i]);
+
+                   if (subElement.hasClass("right-image")) {
+                      $(".right-image").append(subElement.children())
+                   } else if (subElement.hasClass("middile-image")) {
+                      $(".middile-image").append(subElement.children())
+                   } else {
+                      $(".left-image").append(subElement.children())
+                   }
+                }
+                isRequestCompleted = true;
+                pageNumber = response.data.paginationMetaData.pageNumber + 1;
+                isLastPage=!response.data.paginationMetaData.hasNextPage;
+                console.log(isRequestCompleted,pageNumber,isLastPage)
+                hidOrShowLoader();
+             });
+       }
+       else{
+           hidOrShowLoader();
+       }
+    });
+
+    function initImageSectionScripts(urlPath,pageNumber) {
+       this.pageNumber = pageNumber;
+       this.urlPath = urlPath;
+    }
+
+    function hidOrShowLoader(){
+          if(isRequestCompleted && isLastPage){
+           $(".ImageLoader").hide()
+           }
+           else{
+           $(".ImageLoader").show()
+           }
+    }
+</script>
