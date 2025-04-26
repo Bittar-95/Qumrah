@@ -14,6 +14,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload_Image</title>
+    <style>
+        #userImage {
+            background-position-x: center;
+            background-position-y: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            display: inline-block;
+            position: relative;
+        }
+    </style>
 </head>
 
 <body>
@@ -96,16 +106,23 @@
                 </aside>
 
 
-
-                <aside class="leftside" id="userImage" ondrop="dropImage(event)" ondragover="allowDrop(event)">
-                    <div style="position: relative;">
-                        <img id="preview" src="https://web-images-qomra.s3.eu-west-1.amazonaws.com/upload_icon_blue.png">
-                        <span id="removeImage" class="removeImage" onclick="removeImage()"> ✕ </span>
+                <aside class="leftside" id="userImage" ondrop="dropImage(event)" ondragover="allowDrop(event)" style="position: relative; display: flex; align-items: center; justify-content: center; min-height: 300px; border: 2px dashed #ccc; overflow: hidden;">
+                    <div style="position: absolute; top: 7px; right: 30px; z-index: 10;">
+                        <span id="removeImage" class="removeImage" onclick="removeImage()" style="cursor: pointer;">✕</span>
                     </div>
-                    <input style="display:none" asp-for="File" accept="image/*" onchange="previewImage(event)" type="file">
-                    <p> قم بإسقاط ما تريد تحميله هنا </p>
-                    <p> أو <span onclick="changeImage()" style="color: #1E86FF; cursor: pointer;">تصفح محتويات</span> جهازك لترفع الملف </p>
+
+                    <input style="display: none;" asp-for="File" accept="image/*" onchange="previewImage(event)" type="file">
+
+                    <div id="upload-image-instructions" style="text-align: center;">
+                        <p>قم بإسقاط ما تريد تحميله هنا</p>
+                        <p>
+                            أو
+                            <span onclick="changeImage()" style="color: #1E86FF; cursor: pointer;">تصفح محتويات</span>
+                            جهازك لترفع الملف
+                        </p>
+                    </div>
                 </aside>
+
 
 
             </section>

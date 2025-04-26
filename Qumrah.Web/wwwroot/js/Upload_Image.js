@@ -14,8 +14,13 @@ function previewImage(event) {
 
     reader.onload = function (e) {
         // Change the src of the image to the newly selected file
-        const preview = document.getElementById('preview');
-        preview.src = e.target.result;
+        //const preview = document.getElementById('preview');
+        //preview.src = e.target.result;
+        var userImage = document.getElementById("userImage")
+        userImage.style.backgroundImage = "url(" + e.target.result + ")"
+
+        var instructions = document.getElementById("upload-image-instructions");
+        instructions.style.display = "none";
         document.getElementById('removeImage').style.display = 'block'; // Show the remove button
     };
 
@@ -40,12 +45,17 @@ function dropImage(event) {
     if (file && file.type.startsWith('image/')) {
         const reader = new FileReader();
         reader.onload = function (e) {
-            const preview = document.getElementById('preview');
-            preview.src = e.target.result; // Set the image source
+            //const preview = document.getElementById('preview');
+            //preview.src = e.target.result; // Set the image source
+            var instructions = document.getElementById("upload-image-instructions");
+            instructions.style.display = "none";
+
+            var userImage = document.getElementById("userImage")
+            userImage.style.backgroundImage = "url(" + e.target.result + ")"
             document.getElementById('removeImage').style.display = 'block'; // Show the remove button
         };
         reader.readAsDataURL(file); // Read the image file as a data URL
-        
+
         // Update the file input with the dropped file
         const input = document.getElementById('File');
         const dataTransfer = new DataTransfer(); // Create a new DataTransfer object
@@ -58,12 +68,17 @@ function dropImage(event) {
 
 function removeImage() {
     // Reset the image preview
-    const preview = document.getElementById('preview');
-    preview.src = '.https://web-images-qomra.s3.eu-west-1.amazonaws.com/upload_icon_blue.png'; // Reset to default icon
+    //const preview = document.getElementById('preview');
+    //preview.src = '.https://web-images-qomra.s3.eu-west-1.amazonaws.com/upload_icon_blue.png'; // Reset to default icon
 
     // Hide the remove button
     document.getElementById('removeImage').style.display = 'none';
 
+    var instructions = document.getElementById("upload-image-instructions");
+    instructions.style.display = "block";
+
+    var userImage = document.getElementById("userImage")
+    userImage.style.backgroundImage = "url()"
     // Clear the file input
     const input = document.getElementById('File');
     input.value = ''; // Clear the input
@@ -72,7 +87,7 @@ function removeImage() {
 
 
 // Remove the dragover class when dragging leaves
-document.getElementById('userImage').addEventListener('dragleave', function() {
+document.getElementById('userImage').addEventListener('dragleave', function () {
     this.classList.remove('dragover');
 });
 
