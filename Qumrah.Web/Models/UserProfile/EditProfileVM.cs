@@ -28,7 +28,7 @@ namespace Qumrah.Web.Models.UserProfile
         [Display(Name = "الموقع")]
         public string? Location { get; set; }
         [Display(Name = "الموقع الإلكتروني")]
-        [RegularExpression(@"^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$", ErrorMessage = "يرجى إدخال رابط الموقع الإلكتروني")]
+        [RegularExpression(@"^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([/\w \.-]*)*\/?$", ErrorMessage = "يرجى إدخال رابط الموقع الإلكتروني")]
         public string? WebsiteUrl { get; set; }
         public IFormFile? ImageProfile { get; set; }
     }

@@ -102,27 +102,34 @@ namespace Qumrah.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditProfileVM model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var user = await _userService.GetAsync(User.Identity.Name);
-                var imagePath = user.ImagePath;
-
-                await _userService.EditAsync(new EditUserDto
+                if (ModelState.IsValid)
                 {
-                    Id = user.Id,
-                    Description = model.Description,
-                    TwitterLink = model.TwitterLink,
-                    FBLink = model.FBLink,
-                    FirstName = model.FirstName,
-                    InstagramLink = model.InstagramLink,
-                    LastName = model.LastName,
-                    Email = model.Email,
-                    ImagePath = imagePath,
-                    Location = model.Location,
-                    WebsiteUrl = model.WebsiteUrl,
-                }, model.ImageProfile);
-                TempData["Success"] = true;
-                return RedirectToAction(nameof(Edit));
+                    var user = await _userService.GetAsync(User.Identity.Name);
+                    var imagePath = user.ImagePath;
+
+                    await _userService.EditAsync(new EditUserDto
+                    {
+                        Id = user.Id,
+                        Description = model.Description,
+                        TwitterLink = model.TwitterLink,
+                        FBLink = model.FBLink,
+                        FirstName = model.FirstName,
+                        InstagramLink = model.InstagramLink,
+                        LastName = model.LastName,
+                        Email = model.Email,
+                        ImagePath = imagePath,
+                        Location = model.Location,
+                        WebsiteUrl = model.WebsiteUrl,
+                    }, model.ImageProfile);
+                    TempData["Success"] = true;
+                    return RedirectToAction(nameof(Edit));
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
             }
             return View(model);
         }

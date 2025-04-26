@@ -56,7 +56,7 @@
 
             <div class="navbar-add">
                 <div class="profile-image">
-                    <img src="@imgProfilePath" class="profile-icon">
+                    <img src="@imgProfilePath" class="profile-icon" asp-append-version>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <div class="profilePop">
