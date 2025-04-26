@@ -1,13 +1,14 @@
 ﻿@using aspnetcore.ntier.BLL.Services.IServices
 @using aspnetcore.ntier.DTO.DTOs
 @inject IUserService _userService;
+@inject IConfiguration _config
 @{
     ApplicationUserDto model = new ApplicationUserDto();
     if (User.Identity.IsAuthenticated)
     {
         model = await _userService.GetAsync(User.Identity.Name);
     }
-    var imgProfilePath = !string.IsNullOrEmpty(model.ImagePath) ? model.ImagePath : "https://web-images-qomra.s3.eu-west-1.amazonaws.com/faceSmall.png";
+    var imgProfilePath = !string.IsNullOrEmpty(model.ImagePath) ? string.Concat(_config["AWSBaseUrls:qomrah-profile"], model.ImagePath) : "https://web-images-qomra.s3.eu-west-1.amazonaws.com/faceSmall.png";
     ViewBag.ImageProfilePath = imgProfilePath;
 
 }

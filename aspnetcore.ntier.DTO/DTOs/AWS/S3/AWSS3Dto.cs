@@ -11,7 +11,6 @@ namespace aspnetcore.ntier.DTO.DTOs.AWS.S3
     {
         public string BucketName { get; set; }
         public string Key { get; set; }
-        public string FileName { get; set; }
         public byte[] File { get; set; }
     }
 }

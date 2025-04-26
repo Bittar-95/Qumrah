@@ -2,7 +2,6 @@
 @model IndexVM
 @{
     ViewBag.Title = "الصفحة الشخصية";
-    var imagePath = string.IsNullOrEmpty(Model.ImagePath) ? "https://web-images-qomra.s3.eu-west-1.amazonaws.com/faceSmall.png" : Model.ImagePath;
 }
 @section Header {
     <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true">
@@ -30,7 +29,7 @@
 <!-- Person Info -->
 <div class="profile-container">
     <div>
-        <img class="profile-picture" src="@imagePath" alt="Profile Picture">
+        <img class="profile-picture" src="@Model.ImagePath" alt="Profile Picture">
     </div>
 
     <section>

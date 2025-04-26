@@ -1,6 +1,7 @@
 ﻿using aspnetcore.ntier.BLL.Services.AWS.S3;
 using aspnetcore.ntier.BLL.Services.IServices;
 using aspnetcore.ntier.BLL.Utilities.CustomExceptions;
+using aspnetcore.ntier.BLL.Utilities.Extensions;
 using aspnetcore.ntier.BLL.Utilities.ProcessingImages;
 using aspnetcore.ntier.DAL.Entities;
 using aspnetcore.ntier.DAL.Repositories.IRepositories;
@@ -75,7 +76,7 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
             //for thumbnail
             var compressedImage = _imageProcess.CompressImage(Model.Image);
             //originaliage
-            var originalImage = ConvertStreamToBytes(Model.Image.OpenReadStream());
+            var originalImage = Model.Image.ToBytes();
 
             var extractedColors = _imageProcess.ExtractColors(Model.Image);
 
@@ -107,7 +108,6 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
 
 
         }
-
         public async Task<List<MultimediaDto>> GetAsync(FilterMultimediaDto filter)
         {
             var results = await _multimediaRepository.GetListAsync(x =>
@@ -116,8 +116,6 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
             , default, x => x.MultimediaTags, x => x.User);
             return _mapper.Map<List<MultimediaDto>>(results).OrderByDescending(x => x.TotalDownloads).ToList();
         }
-
-
         public IPagedList<MultimediaDto> Get(FilterMultimediaDto filter)
         {
             var multimedia = _multimediaRepository.GetPagedList(filter.PageNumber, filter.PageSize, x =>
@@ -134,20 +132,6 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
             return _mapper.Map<MultimediaDto>(results);
         }
 
-
-        private byte[] ConvertStreamToBytes(Stream input)
-        {
-            byte[] buffer = new byte[16 * 1024];
-            using (MemoryStream ms = new MemoryStream())
-            {
-                int read;
-                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
-                {
-                    ms.Write(buffer, 0, read);
-                }
-                return ms.ToArray();
-            }
-        }
         private async Task<string> UploadedFile(byte[] file, string extension, string bucketName)
         {
             string uniqueFileName = null;
@@ -157,7 +141,7 @@ namespace aspnetcore.ntier.BLL.Services.Multimedia
             {
                 File = file,
                 BucketName = bucketName,
-                FileName = uniqueFileName
+                Key = uniqueFileName
             });
             return uniqueFileName;
         }

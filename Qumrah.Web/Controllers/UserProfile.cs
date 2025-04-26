@@ -54,7 +54,7 @@ namespace Qumrah.Web.Controllers
                 InstagramLink = user.InstagramLink,
                 LastName = user.LastName,
                 Email = user.Email,
-                ImagePath = user.ImagePath,
+                ImagePath = user.ImagePath is null ? "https://web-images-qomra.s3.eu-west-1.amazonaws.com/faceSmall.png" : string.Concat(_configuration["AWSBaseUrls:qomrah-profile"], user.ImagePath),
                 Location = user.Location,
                 WebsiteUrl = user.WebsiteUrl,
                 Multimedias = new List<MultimediaVM>()
@@ -92,7 +92,7 @@ namespace Qumrah.Web.Controllers
                 InstagramLink = user.InstagramLink,
                 LastName = user.LastName,
                 Email = user.Email,
-                ImagePath = user.ImagePath,
+                ImagePath = user.ImagePath is null ? "https://web-images-qomra.s3.eu-west-1.amazonaws.com/faceSmall.png" : string.Concat(_configuration["AWSBaseUrls:qomrah-profile"], user.ImagePath),
                 Location = user.Location,
                 WebsiteUrl = user.WebsiteUrl,
             };
@@ -106,30 +106,6 @@ namespace Qumrah.Web.Controllers
             {
                 var user = await _userService.GetAsync(User.Identity.Name);
                 var imagePath = user.ImagePath;
-                if (model.ImageProfile is not null && model.ImageProfile.Length > 0)
-                {
-                    var allowExtensions = _configuration.GetSection("AllowImageProfileExtensions").Get<List<string>>();
-                    var imageExtension = System.IO.Path.GetExtension(model.ImageProfile.FileName).ToLower();
-                    if (allowExtensions.Contains(imageExtension))
-                    {
-                        string uploads = Path.Combine(_hostingEnvironment.WebRootPath, "images", "Profiles");
-                        var fileName = user.Id.ToString() + imageExtension;
-                        var filePath = Path.Combine(uploads, fileName);
-                        using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await model.ImageProfile.CopyToAsync(fileStream);
-                        }
-                        imagePath = Path.Combine(@"\images", "Profiles", fileName);
-                    }
-                    else
-                    {
-                        ViewBag.Error = "صيغة الصورة الشخصية غير صحيحة";
-                        return View(model);
-                    }
-
-
-                }
-
 
                 await _userService.EditAsync(new EditUserDto
                 {
@@ -144,7 +120,7 @@ namespace Qumrah.Web.Controllers
                     ImagePath = imagePath,
                     Location = model.Location,
                     WebsiteUrl = model.WebsiteUrl,
-                });
+                }, model.ImageProfile);
                 TempData["Success"] = true;
                 return RedirectToAction(nameof(Edit));
             }

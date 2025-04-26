@@ -36,12 +36,12 @@ namespace aspnetcore.ntier.BLL.Services.AWS.S3
                 {
                     newMemoryStream.Write(aWSS3Dto.File, 0, aWSS3Dto.File.Length);
                     string contentType = string.Empty;
-                    new FileExtensionContentTypeProvider().TryGetContentType(aWSS3Dto.FileName, out contentType);
+                    new FileExtensionContentTypeProvider().TryGetContentType(aWSS3Dto.Key, out contentType);
 
                     var uploadRequest = new TransferUtilityUploadRequest
                     {
                         InputStream = newMemoryStream,
-                        Key = aWSS3Dto.FileName,
+                        Key = aWSS3Dto.Key,
                         BucketName = aWSS3Dto.BucketName,
                         ContentType = contentType
                     };
